@@ -32,6 +32,10 @@ description: "This sample demonstrates how to enable your Blazor Single-page App
 
 This sample demonstrates an ASP.NET Core Blazor WebAssembly standalone application that authenticates users against Azure AD B2C.
 
+This application uses **Implicit flow** grant type provided by Microsoft identity platform.
+
+![Overview](./ReadmeFiles/spa-app.svg)
+
 ## Scenario
 
 1. The ASP.NET Core Blazor WebAssembly standalone app uses the [Microsoft Authentication Library (MSAL.js)](https://github.com/AzureAD/microsoft-authentication-library-for-js) to obtain an [ID Token](https://docs.microsoft.com/azure/active-directory/develop/id-tokens) from **Azure AD B2C**:
@@ -39,9 +43,7 @@ This sample demonstrates an ASP.NET Core Blazor WebAssembly standalone applicati
 
 ![Overview](./ReadmeFiles/sign-in.png)
 
-Application uses **Implicit flow** grant type provided by Microsoft identity platform.
 
-![Overview](./ReadmeFiles/spa-app.svg)
 
 ## Prerequisites
 
@@ -174,7 +176,7 @@ In the console window execute the below command:
       });
    ```
 
-   AddMsalAuthentication is an extension method provided by the [Microsoft.Authentication.WebAssembly.Msal](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal) package and it provides support for authenticating users.
+   **AddMsalAuthentication** is an extension method provided by the [Microsoft.Authentication.WebAssembly.Msal](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal) package and it provides support for authenticating users.
 
 1. **Index.razor** is the landing page when application starts. Index.razor contains child component called `UserClaims`. If user is authenticated successfully, `UserClaims` displays a few claims present in the ID Token issued by Azure AD B2C.
 
@@ -248,13 +250,14 @@ In the console window execute the below command:
 
 ## Next chapter of the tutorial: the Web APP calls Microsoft Graph
 
-In the next chapter, we will enhance this Web APP to call downstream Web API (Microsoft Graph).
+In the next chapter, we will enhance this Web App to call downstream Web API (Microsoft Graph).
 
 See [Call-MSGraph-B2C](../../WebApp-graph-user/Call-MSGraph-B2C/README-Incremental.md)
 
 ## More information
 
 - [What is Azure Active Directory B2C?](https://docs.microsoft.com/azure/active-directory-b2c/overview)
+- [Secure an ASP.NET Core Blazor WebAssembly standalone app with Azure Active Directory B2C](https://docs.microsoft.com/aspnet/core/blazor/security/webassembly/standalone-with-azure-active-directory-b2c)
 - [Application types that can be used in Active Directory B2C](https://docs.microsoft.com/azure/active-directory-b2c/application-types)
 - [Recommendations and best practices for Azure Active Directory B2C](https://docs.microsoft.com/azure/active-directory-b2c/best-practices)
 - [Azure AD B2C session](https://docs.microsoft.com/azure/active-directory-b2c/session-overview)

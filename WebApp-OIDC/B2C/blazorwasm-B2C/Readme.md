@@ -2,14 +2,27 @@
 page_type: sample
 languages:
   - csharp
+  - javascript
+  - typescript
+  - python
+  - java
 products:
+  - dotnet
+  - aspnet
   - aspnet-core
-  - azure-active-directory
-name: Enable your Blazor Single-page Application (SPA) to sign-in users with the Microsoft identity platform
+  - dotnet-core
+  - ms-graph
+  - azure-active-directory  
+  - azure-active-directory-b2c
+  - azure-active-directory-domain
+name: A Blazor WebAssembly Web App to authenticate users against Azure Active Directory (Azure AD)
 urlFragment: ms-identity-blazor-wasm
-description: "This sample demonstrates how to enable your Blazor Single-page Application (SPA) to sign-in users with the Microsoft identity platform"
+description: "This sample demonstrates a Blazor WebAssembly Web App application that authenticates users against Azure AD"
+azureDeploy: <ENTER_FULLY_QUALIFIED_URL_TO_AN_AZURE_RESOURCE_MANAGER>
+extendedZipContent: <FILES_OR_FOLDERS_WITH_TWO_ABSOLUTE_PATHS_TO_INCLUDE_WITH_ZIP:PATH(NAME_IN_THE_REPO), TARGET(NAME_IN_THE_ZIP)>
+extensions: <ENTER_CONTENT_THAT_OTHER_TEAMS_CAN_USE_TO_IDENTIFY_SAMPLES>
 ---
-# Enable your Blazor Single-page Application (SPA) to sign-in users with the Microsoft identity platform
+# A Blazor WebAssembly Web App to authenticate users against Azure Active Directory (Azure AD)
 
  1. [Overview](#overview)
  1. [Scenario](#scenario)
@@ -30,23 +43,26 @@ description: "This sample demonstrates how to enable your Blazor Single-page App
 
 ## Overview
 
-This sample demonstrates an ASP.NET Core Blazor WebAssembly standalone application that authenticates users against Azure AD.
+This sample demonstrates a ASP.NET Core Blazor WebAssembly standalone application that authenticates users against Azure AD.
 
 ## Scenario
 
-1. The ASP.NET Core Blazor WebAssembly standalone app uses the [Microsoft Authentication Library (MSAL.js)](https://github.com/AzureAD/microsoft-authentication-library-for-js) to obtain an [ID Token](https://docs.microsoft.com/azure/active-directory/develop/id-tokens) from **Azure AD**:
-1. The **ID Token** proves that the user has successfully authenticated against **Azure AD**.
+1. The ASP.NET Core Blazor WebAssembly standalone app uses the Microsoft Authentication Library (MSAL) to obtain an ID Token from **Azure AD**:
+2. The **ID Token** proves that the user has successfully authenticated against **Azure AD**.
 
-![Overview](./ReadmeFiles/sign-in.png)
+## Contents
 
-Application uses **Implicit flow** grant type provided by Microsoft identity platform.
+> Give a high-level folder structure of the sample.
 
-![Overview](./ReadmeFiles/spa-app.svg)
+| File/folder       | Description                                |
+|-------------------|--------------------------------------------|
+| `CHANGELOG.md`    | List of changes to the sample.             |
+| `CONTRIBUTING.md` | Guidelines for contributing to the sample. |
+| `LICENSE`         | The license for the sample.                |
 
 ## Prerequisites
 
 - Either [Visual Studio](https://visualstudio.microsoft.com/downloads/) or [Visual Studio Code](https://code.visualstudio.com/download) and [.NET Core SDK](https://www.microsoft.com/net/learn/get-started)
-- System should have .Net SDK v3.1.6 or above. You can install it from [Download .NET Core 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1)
 - An **Azure AD** tenant. For more information see: [How to get an Azure AD tenant](https://azure.microsoft.com/documentation/articles/active-directory-howto-tenant/)
 - A user account in your **Azure AD**. This sample will not work with a **personal Microsoft account**. Therefore, if you signed in to the [Azure portal](https://portal.azure.com) with a personal account and have never created a user account in your directory before, you need to do that now.
 
@@ -58,7 +74,6 @@ From your shell or command line:
 
 ```console
     git clone https://github.com/Azure-Samples/ms-identity-blazor-wasm.git
-	cd WebApp-OIDC			  
 ```
 
 or download and extract the repository .zip file.
@@ -131,9 +146,9 @@ Open the project in your IDE (like Visual Studio or Visual Studio Code) to confi
 
 > In the steps below, "ClientID" is the same as "Application ID" or "AppId".
 
-1. Open the `blazorwasm-singleOrg\wwwroot\appsettings.json` file.
+1. Open the `wwwroot\appsettings.json` file.
 1. Find the key `ClientId` and replace the existing value with the application ID (clientId) of the `WebApp-blazor-wasm` application copied from the Azure portal.
-1. Find the key `Authority` and concatenate the tenant id as shown here: 'https://login.microsoftonline.com/'+[enter_your_tenantId].
+1. Find the key `Authority` and replace the existing value with 'https://login.microsoftonline.com/'+$tenantId.
 1. Find the key `ValidateAuthority` and replace the existing value with 'true'.
 
 ## Running the sample
@@ -149,7 +164,6 @@ Clean the solution, rebuild the solution, and run it.
 #### Step 1. Install .NET Core dependencies
 
 ```console
-   cd WebApp-OIDC\MyOrg
    cd blazorwasm-singleOrg
    dotnet restore
 ```
@@ -178,104 +192,73 @@ In the console window execute the below command:
 
 > :information_source: Did the sample not work for you as expected? Then please reach out to us using the [GitHub Issues](../../../../issues) page.
 
-> [Consider taking a moment to share your experience with us.](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR73pcsbpbxNJuZCMKN0lURpUMEw0UFNBVVBEV1E3VFNBU1I0T05TNzhPViQlQCN0PWcu)
-
 ## About the code
 
-1. In Program.cs, Main method registers **AddMsalAuthentication** as explained below:
+In Program.cs, below lines of code in Main method:
 
-   ```csharp
-      builder.Services.AddMsalAuthentication(options =>
-      {
-         builder.Configuration.Bind("AzureAd", options.ProviderOptions.Authentication);
-      });
-   ```
-
-   **AddMsalAuthentication** is an extension method provided by the [Microsoft.Authentication.WebAssembly.Msal](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal) package and it provides support for authenticating users with the Microsoft Identity Platform.
-
-1. **Index.razor** is the landing page when application starts. Index.razor contains child component called `UserClaims`. If user is authenticated successfully, `UserClaims` displays a few claims present in the ID Token issued by Azure AD.
-
-   The **AuthorizeView** component selectively displays UI depending on whether the user is authorized to see it.
-
-   ```csharp
-   @inherits UserClaimsBase
-   <AuthorizeView>
-      <Authorized>
-         <h3>Claims from the signed-in user's token</h3>
-         @if (_claims.Count() > 0)
-         {
-               <table class="table">
-                  <thead>
-                     <tr>
-                           <th>Claim Type</th>
-                           <th>Value</th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     @foreach (var claim in _claims)
-                     {
-                           <tr>
-                              <td>@claim.Type</td>
-                              <td>@claim.Value</td>
-                           </tr>
-                     }
-                  </tbody>
-               </table>
-         }
-         else
-         {
-               <h3>_authMessage</h3>
-         }
-      </Authorized>
-   </AuthorizeView>
-   ```
-
-1. In the `UserClaimsBase.cs` class, **GetClaimsPrincipalData** method retrieves signed-in user's claims using the **GetAuthenticationStateAsync()** method of the **AuthenticationStateProvider** class.
-
-   ```csharp
-    public class UserClaimsBase: ComponentBase
+```csharp
+    builder.Services.AddMsalAuthentication(options =>
     {
-        [Inject]
-        private AuthenticationStateProvider AuthenticationStateProvider { get; set;
-        }
-        protected string _authMessage;
-        protected IEnumerable<Claim> _claims = Enumerable.Empty<Claim>();
-        private string[] returnClaims = { "name", "preferred_username", "tid" };
-        protected override async Task OnInitializedAsync()
-        {
-            await GetClaimsPrincipalData();
-        }
-        private async Task GetClaimsPrincipalData()
-        {
-            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-            var user = authState.User;
+        builder.Configuration.Bind("AzureAd", options.ProviderOptions.Authentication);
+    });
+```
 
-            if (user.Identity.IsAuthenticated)
-            {
-                _authMessage = $"{user.Identity.Name} is authenticated.";
-                _claims = user.Claims.Where(x => returnClaims.Contains(x.Type));
-            }
-            else
-            {
-                _authMessage = "The user is NOT authenticated.";
-            }
-        }
-    }
-   ```
+## Deployment
 
-## Next chapter of the tutorial: the Web APP calls Microsoft Graph
+### Deployment to Azure App Services
 
-In the next chapter, we will enhance this Web APP to call downstream Web API (Microsoft Graph).
+There is one web project in this sample. To deploy it to **Azure App Services**, you'll need to:
 
-See [Call-MSGraph](../../WebApp-graph-user/Call-MSGraph/README-Incremental.md)
+- create an **Azure App Service**
+- publish the projects to the **App Services**, and
+- update its client(s) to call the web site instead of the local environment.
+
+#### Create and publish `WebApp-blazor-wasm` to an Azure App Services
+
+1. Sign in to the [Azure portal](https://portal.azure.com).
+1. Click `Create a resource` in the top left-hand corner, select **Web** --> **Web App**, and give your web site a name, for example, `WebApp-blazor-wasm-contoso.azurewebsites.net`.
+1. Next, select the `Subscription`, `Resource Group`, `App service plan and Location`. `OS` will be **Windows** and `Publish` will be **Code**.
+1. Click `Create` and wait for the App Service to be created.
+1. Once you get the `Deployment succeeded` notification, then click on `Go to resource` to navigate to the newly created App service.
+
+<!-- Review and delete the following lines if not applicable -->
+1. The following steps provide instructions to create a Sql database that the sample needs. If you already have a Sql Server and database present and a connection string available, skip the steps till we ask you to provide the connections string in the `Application Settings`.
+1. Click `Create a resource` in the top left-hand corner again, select **Databases** --> **SQL Database**, to create a new database. Follow the `Quickstart tutorial` if needed.
+1. You can name the Sql server and database whatever you want to.
+1. Select or create a database server, and enter server login credentials. Carefully note down the username and password for the Sql server as you'll need it when constructing your Sql conenction string later.
+1. Wait for the `Deployment succeeded` notification, then click on `Go to resource` to navigate to the newly created database's manage screen.
+1. Click on **Connection Strings** on left menu and copy the **ADO.NET (SQL authentication)** connection string. Populate  **User ID={your_username};Password={your_password};** with values your provided during database creation.Copy this connection string.
+<!-- Review and delete the preceding lines if not applicable end -->
+
+1. Once the web site is created, locate it it in the **Dashboard** and click it to open **App Services** **Overview** screen.
+
+<!-- Review and delete the following lines if not applicable -->
+1. Click on **Application settings** in the left menu of the App service and add the copied Sql connection string in the **Connection strings** section as `DefaultConnection`.
+1. Choose `SQLAzure` in the **Type** dropdown. **Save** the setting.
+<!-- Review and delete the preceding lines if not applicable end -->
+
+
+##### Update the Azure AD app registration for `WebApp-blazor-wasm`
+
+1. Navigate back to to the [Azure portal](https://portal.azure.com).
+In the left-hand navigation pane, select the **Azure Active Directory** service, and then select **App registrations (Preview)**.
+1. In the resulting screen, select the `WebApp-blazor-wasm` application.
+1. In the **Authentication** page for your application, update the Logout URL fields with the address of your service, for example [https://WebApp-blazor-wasm-contoso.azurewebsites.net](https://WebApp-blazor-wasm-contoso.azurewebsites.net)
+1. From the *Branding* menu, update the **Home page URL**, to the address of your service, for example [https://WebApp-blazor-wasm-contoso.azurewebsites.net](https://WebApp-blazor-wasm-contoso.azurewebsites.net). Save the configuration.
+1. Add the same URL in the list of values of the *Authentication -> Redirect URIs* menu. If you have multiple redirect URIs, make sure that there a new entry using the App service's URI for each redirect URI.
+
+> :warning: If your app is using an *in-memory* storage, **Azure App Services** will spin down your web site if it is inactive, and any records that your app was keeping will emptied. In addition, if you increase the instance count of your web site, requests will be distributed among the instances. Your app's records, therefore, will not be the same on each instance.
 
 ## More information
 
 - [Microsoft identity platform (Azure Active Directory for developers)](https://docs.microsoft.com/azure/active-directory/develop/)
 - [Overview of Microsoft Authentication Library (MSAL)](https://docs.microsoft.com/azure/active-directory/develop/msal-overview)
 - [Quickstart: Register an application with the Microsoft identity platform (Preview)](https://docs.microsoft.com/azure/active-directory/develop/quickstart-register-app)
+- [Quickstart: Configure a client application to access web APIs (Preview)](https://docs.microsoft.com/azure/active-directory/develop/quickstart-configure-app-access-web-apis)
 - [Understanding Azure AD application consent experiences](https://docs.microsoft.com/azure/active-directory/develop/application-consent-experience)
+- [Understand user and admin consent](https://docs.microsoft.com/azure/active-directory/develop/howto-convert-app-to-be-multi-tenant#understand-user-and-admin-consent)
 - [Application and service principal objects in Azure Active Directory](https://docs.microsoft.com/azure/active-directory/develop/app-objects-and-service-principals)
+- [National Clouds](https://docs.microsoft.com/azure/active-directory/develop/authentication-national-cloud#app-registration-endpoints)
 - [MSAL code samples](https://docs.microsoft.com/azure/active-directory/develop/sample-v2-code)
 
 For more information about how OAuth 2.0 protocols work in this scenario and other scenarios, see [Authentication Scenarios for Azure AD](https://docs.microsoft.com/azure/active-directory/develop/authentication-flows-app-scenarios).
@@ -292,6 +275,6 @@ To provide a recommendation, visit the following [User Voice page](https://feedb
 
 ## Contributing
 
-If you'd like to contribute to this sample, see [CONTRIBUTING.MD](../../CONTRIBUTING.md).
+If you'd like to contribute to this sample, see [CONTRIBUTING.MD](/CONTRIBUTING.md).
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information, see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.

@@ -5,37 +5,28 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace blazorwasm_singleOrg.Pages
+namespace blazorwasm_B2C.Pages
 {
     public class UserClaimsBase: ComponentBase
     {
-        // AuthenticationStateProvider service provides the current user's ClaimsPrincipal data.
         [Inject]
-        private AuthenticationStateProvider AuthenticationStateProvider { get; set;}
-
+        private AuthenticationStateProvider AuthenticationStateProvider { get; set;
+        }
         protected string _authMessage;
         protected IEnumerable<Claim> _claims = Enumerable.Empty<Claim>();
 
         // Defines list of claim types that will be displayed after successfull sign-in.
-        private string[] returnClaims = { "name", "preferred_username", "tid" };
+        private string[] returnClaims = { "idp", "name"};
 
         protected override async Task OnInitializedAsync()
         {
             await GetClaimsPrincipalData();
         }
-
-        /// <summary>
-        /// Retrieves user claims for the signed-in user.
-        /// </summary>
-        /// <returns></returns>
         private async Task GetClaimsPrincipalData()
         {
-            // Gets an AuthenticationState that describes the current user.
             var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-
             var user = authState.User;
 
-            // Checks if the user has been authenticated.
             if (user.Identity.IsAuthenticated)
             {
                 _authMessage = $"{user.Identity.Name} is authenticated.";

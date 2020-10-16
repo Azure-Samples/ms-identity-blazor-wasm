@@ -4,12 +4,12 @@ languages:
   - csharp
 products:
   - aspnet-core
-  - azure-active-directory
-name: Enable your Blazor Single-page Application (SPA) to sign-in users with the Microsoft identity platform
+  - azure-active-directory-b2c
+name: Enable your Blazor Single-page Application (SPA) to sign-in users with the Microsoft identity platform in Azure AD B2C
 urlFragment: ms-identity-blazor-wasm
-description: "This sample demonstrates how to enable your Blazor Single-page Application (SPA) to sign-in users with the Microsoft identity platform"
+description: "This sample demonstrates how to enable your Blazor Single-page Application (SPA) to sign-in users against Azure AD B2C"
 ---
-# Enable your Blazor Single-page Application (SPA) to sign-in users with the Microsoft identity platform
+# Enable your Blazor Single-page Application (SPA) to sign-in users with the Microsoft identity platform in Azure AD B2C
 
  1. [Overview](#overview)
  1. [Scenario](#scenario)
@@ -30,12 +30,12 @@ description: "This sample demonstrates how to enable your Blazor Single-page App
 
 ## Overview
 
-This sample demonstrates an ASP.NET Core Blazor WebAssembly standalone application that authenticates users against Azure AD.
+This sample demonstrates an ASP.NET Core Blazor WebAssembly standalone application that authenticates users against Azure AD B2C.
 
 ## Scenario
 
-1. The ASP.NET Core Blazor WebAssembly standalone app uses the [Microsoft Authentication Library (MSAL.js)](https://github.com/AzureAD/microsoft-authentication-library-for-js) to obtain an [ID Token](https://docs.microsoft.com/azure/active-directory/develop/id-tokens) from **Azure AD**:
-1. The **ID Token** proves that the user has successfully authenticated against **Azure AD**.
+1. The ASP.NET Core Blazor WebAssembly standalone app uses the [Microsoft Authentication Library (MSAL.js)](https://github.com/AzureAD/microsoft-authentication-library-for-js) to obtain an [ID Token](https://docs.microsoft.com/azure/active-directory/develop/id-tokens) from **Azure AD B2C**:
+1. The **ID Token** proves that the user has successfully authenticated against **Azure AD B2C**.
 
 ![Overview](./ReadmeFiles/sign-in.png)
 
@@ -47,8 +47,8 @@ Application uses **Implicit flow** grant type provided by Microsoft identity pla
 
 - Either [Visual Studio](https://visualstudio.microsoft.com/downloads/) or [Visual Studio Code](https://code.visualstudio.com/download) and [.NET Core SDK](https://www.microsoft.com/net/learn/get-started)
 - System should have .Net SDK v3.1.6 or above. You can install it from [Download .NET Core 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1)
-- An **Azure AD** tenant. For more information see: [How to get an Azure AD tenant](https://azure.microsoft.com/documentation/articles/active-directory-howto-tenant/)
-- A user account in your **Azure AD**. This sample will not work with a **personal Microsoft account**. Therefore, if you signed in to the [Azure portal](https://portal.azure.com) with a personal account and have never created a user account in your directory before, you need to do that now.
+- An **Azure AD B2C** tenant. For more information see: [How to get an Azure AD B2C tenant](https://docs.microsoft.com/azure/active-directory-b2c/tutorial-create-tenant)
+- A user account in your **Azure AD B2C**. This sample will not work with a **personal Microsoft account**. Therefore, if you signed in to the [Azure portal](https://portal.azure.com) with a personal account and have never created a user account in your directory before, you need to do that now.
 
 ## Setup
 
@@ -57,64 +57,47 @@ Application uses **Implicit flow** grant type provided by Microsoft identity pla
 From your shell or command line:
 
 ```console
-    git clone https://github.com/Azure-Samples/ms-identity-blazor-wasm.git
-	cd WebApp-OIDC			  
+   git clone https://github.com/Azure-Samples/ms-identity-blazor-wasm.git
+   cd WebApp-OIDC
 ```
 
 or download and extract the repository .zip file.
 
 > :warning: Given that the name of the sample is quite long, and so are the names of the referenced packages, you might want to clone it in a folder close to the root of your hard drive, to avoid maximum file path length limitations on Windows.
 
+## Registration
+
+:warning: This sample comes with a pre-registered application for testing purposes. If you would like to use your own **Azure AD B2C** tenant and application, follow the steps below to register and configure the application in the **Azure Portal**. Otherwise, continue with the steps for [Running the sample](#running-the-sample).
+
 ### Register the sample application(s) with your Azure Active Directory tenant
 
-There is one project in this sample. To register it, you can:
-
-- follow the steps below for manually register your apps
-- or use PowerShell scripts that:
-  - **automatically** creates the Azure AD applications and related objects (passwords, permissions, dependencies) for you.
-  - modify the projects' configuration files.
-
-<details>
-  <summary>Expand this section if you want to use this automation:</summary>
-
-> :warning: If you have never used **Azure AD Powershell** before, we recommend you go through the [App Creation Scripts](./AppCreationScripts/AppCreationScripts.md) once to ensure that your environment is prepared correctly for this step.
-
-1. On Windows, run PowerShell as **Administrator** and navigate to the root of the cloned directory
-1. In PowerShell run:
-
-   ```PowerShell
-   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process -Force
-   ```
-
-1. Run the script to create your Azure AD application and configure the code of the sample application accordingly.
-1. In PowerShell run:
-
-   ```PowerShell
-   cd .\AppCreationScripts\
-   .\Configure.ps1
-   ```
-
-   > Other ways of running the scripts are described in [App Creation Scripts](./AppCreationScripts/AppCreationScripts.md)
-   > The scripts also provide a guide to automated application registration, configuration and removal which can help in your CI/CD scenarios.
-
-</details>
+There is one project in this sample. To register it, you can follow the steps below to manually register your apps.
 
 #### Choose the Azure AD tenant where you want to create your applications
 
 As a first step you'll need to:
 
 1. Sign in to the [Azure portal](https://portal.azure.com).
-1. If your account is present in more than one Azure AD tenant, select your profile at the top right corner in the menu on top of the page, and then **switch directory** to change your portal session to the desired Azure AD tenant.
+1. If your account is present in more than one Azure AD B2C tenant, select your profile at the top right corner in the menu on top of the page, and then **switch directory** to change your portal session to the desired Azure AD B2C tenant.
+
+#### Create User Flows and Custom Policies
+
+Please refer to: [Tutorial: Create user flows in Azure Active Directory B2C](https://docs.microsoft.com/azure/active-directory-b2c/tutorial-create-user-flows)
+
+#### Add External Identity Providers
+
+Please refer to: [Tutorial: Add identity providers to your applications in Azure Active Directory B2C](https://docs.microsoft.com/azure/active-directory-b2c/tutorial-add-identity-providers)
 
 #### Register the web app (WebApp-blazor-wasm)
 
-1. Navigate to the [Azure portal](https://portal.azure.com) and select the **Azure AD** service.
+1. Navigate to the [Azure portal](https://portal.azure.com) and select the **Azure AD B2C** service.
 1. Select the **App Registrations** blade on the left, then select **New registration**.
 1. In the **Register an application page** that appears, enter your application's registration information:
    - In the **Name** section, enter a meaningful application name that will be displayed to users of the app, for example `WebApp-blazor-wasm`.
-   - Under **Supported account types**, select **Accounts in this organizational directory only**.
+   - Under **Supported account types**, select **Accounts in any identity provider or organizational directory (for authenticating users with user flows)**.
    - In the **Redirect URI (optional)** section, select **Web** in the combo-box and enter the following redirect URI: `https://localhost:44314/`.
      > Note that there are more than one redirect URIs used in this sample. You'll need to add them from the **Authentication** tab later after the app has been created successfully.
+1. Confirm that Permissions > **Grant admin consent to openid and offline_access permissions** is selected.
 1. Select **Register** to create the application.
 1. In the app's registration screen, find and note the **Application (client) ID**. You use this value in your app's configuration file(s) later in your code.
 1. In the app's registration screen, select **Authentication** in the menu.
@@ -122,7 +105,7 @@ As a first step you'll need to:
    - In the **Redirect URIs** section, enter the following redirect URIs.
       - `https://localhost:44314/authentication/login-callback`
    - In the **Logout URL** section, set it to `https://localhost:44314/signout-oidc`.
-   - In **Implicit grant** section, select the check box for ID tokens.
+   - In **Implicit grant** section,  select the check boxes for **Access tokens** and **ID tokens**.
 1. Select **Save** to save your changes.
 
 #### Configure the web app (WebApp-blazor-wasm) to use your app registration
@@ -131,10 +114,10 @@ Open the project in your IDE (like Visual Studio or Visual Studio Code) to confi
 
 > In the steps below, "ClientID" is the same as "Application ID" or "AppId".
 
-1. Open the `blazorwasm-singleOrg\wwwroot\appsettings.json` file.
+1. Open the `blazorwasm-B2C\wwwroot\appsettings.json` file.
 1. Find the key `ClientId` and replace the existing value with the application ID (clientId) of the `WebApp-blazor-wasm` application copied from the Azure portal.
-1. Find the key `Authority` and concatenate the tenant id as shown here: 'https://login.microsoftonline.com/'+[enter_your_tenantId].
-1. Find the key `ValidateAuthority` and replace the existing value with 'true'.
+1. Find the key `Authority` and populate it with your policy authority strings e.g. `https://<your-tenant-name>.b2clogin.com/<your-tenant-name>.onmicrosoft.com/B2C_1_signupsignin`.
+1. Find the key `ValidateAuthority` and replace the existing value with 'false'.
 
 ## Running the sample
 
@@ -149,7 +132,7 @@ Clean the solution, rebuild the solution, and run it.
 #### Step 1. Install .NET Core dependencies
 
 ```console
-   cd WebApp-OIDC\MyOrg
+   cd WebApp-OIDC\B2C
    cd blazorwasm-singleOrg
    dotnet restore
 ```
@@ -178,7 +161,7 @@ In the console window execute the below command:
 
 > :information_source: Did the sample not work for you as expected? Then please reach out to us using the [GitHub Issues](../../../../issues) page.
 
-> [Consider taking a moment to share your experience with us.](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR73pcsbpbxNJuZCMKN0lURpUMEw0UFNBVVBEV1E3VFNBU1I0T05TNzhPViQlQCN0PWcu)
+> [Were we successful in addressing your learning objective? Do consider taking a moment to share your experience with us.](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR73pcsbpbxNJuZCMKN0lURpUMEw0UFNBVVBEV1E3VFNBU1I0T05TNzhPViQlQCN0PWcu)
 
 ## About the code
 
@@ -187,13 +170,13 @@ In the console window execute the below command:
    ```csharp
       builder.Services.AddMsalAuthentication(options =>
       {
-         builder.Configuration.Bind("AzureAd", options.ProviderOptions.Authentication);
+         builder.Configuration.Bind("AzureAdB2C", options.ProviderOptions.Authentication);
       });
    ```
 
-   **AddMsalAuthentication** is an extension method provided by the [Microsoft.Authentication.WebAssembly.Msal](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal) package and it provides support for authenticating users with the Microsoft Identity Platform.
+   AddMsalAuthentication is an extension method provided by the [Microsoft.Authentication.WebAssembly.Msal](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal) package and it provides support for authenticating users.
 
-1. **Index.razor** is the landing page when application starts. Index.razor contains child component called `UserClaims`. If user is authenticated successfully, `UserClaims` displays a few claims present in the ID Token issued by Azure AD.
+1. **Index.razor** is the landing page when application starts. Index.razor contains child component called `UserClaims`. If user is authenticated successfully, `UserClaims` displays a few claims present in the ID Token issued by Azure AD B2C.
 
    The **AuthorizeView** component selectively displays UI depending on whether the user is authorized to see it.
 
@@ -240,7 +223,7 @@ In the console window execute the below command:
         }
         protected string _authMessage;
         protected IEnumerable<Claim> _claims = Enumerable.Empty<Claim>();
-        private string[] returnClaims = { "name", "preferred_username", "tid" };
+        private string[] returnClaims = { "idp", "name"};
         protected override async Task OnInitializedAsync()
         {
             await GetClaimsPrincipalData();
@@ -267,16 +250,14 @@ In the console window execute the below command:
 
 In the next chapter, we will enhance this Web APP to call downstream Web API (Microsoft Graph).
 
-See [Call-MSGraph](../../WebApp-graph-user/Call-MSGraph/README-Incremental.md)
+See [Call-MSGraph-B2C](../../WebApp-graph-user/Call-MSGraph-B2C/README-Incremental.md)
 
 ## More information
 
-- [Microsoft identity platform (Azure Active Directory for developers)](https://docs.microsoft.com/azure/active-directory/develop/)
-- [Overview of Microsoft Authentication Library (MSAL)](https://docs.microsoft.com/azure/active-directory/develop/msal-overview)
-- [Quickstart: Register an application with the Microsoft identity platform (Preview)](https://docs.microsoft.com/azure/active-directory/develop/quickstart-register-app)
-- [Understanding Azure AD application consent experiences](https://docs.microsoft.com/azure/active-directory/develop/application-consent-experience)
-- [Application and service principal objects in Azure Active Directory](https://docs.microsoft.com/azure/active-directory/develop/app-objects-and-service-principals)
-- [MSAL code samples](https://docs.microsoft.com/azure/active-directory/develop/sample-v2-code)
+- [What is Azure Active Directory B2C?](https://docs.microsoft.com/azure/active-directory-b2c/overview)
+- [Application types that can be used in Active Directory B2C](https://docs.microsoft.com/azure/active-directory-b2c/application-types)
+- [Recommendations and best practices for Azure Active Directory B2C](https://docs.microsoft.com/azure/active-directory-b2c/best-practices)
+- [Azure AD B2C session](https://docs.microsoft.com/azure/active-directory-b2c/session-overview)
 
 For more information about how OAuth 2.0 protocols work in this scenario and other scenarios, see [Authentication Scenarios for Azure AD](https://docs.microsoft.com/azure/active-directory/develop/authentication-flows-app-scenarios).
 

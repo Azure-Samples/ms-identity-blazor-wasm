@@ -10,13 +10,13 @@ namespace blazorwasm_B2C.Pages
     public class UserClaimsBase: ComponentBase
     {
         [Inject]
-        private AuthenticationStateProvider AuthenticationStateProvider { get; set;
-        }
+        private AuthenticationStateProvider AuthenticationStateProvider { get; set;}
+
         protected string _authMessage;
         protected IEnumerable<Claim> _claims = Enumerable.Empty<Claim>();
 
         // Defines list of claim types that will be displayed after successfull sign-in.
-        private string[] returnClaims = { "idp", "name"};
+        private string[] returnClaims = { "idp", "name", "oid" };
 
         protected override async Task OnInitializedAsync()
         {

@@ -17,7 +17,7 @@
       "Kind": "WebApp",
       "Audience": "AzureADMyOrg",
       "HomePage": "https://localhost:44314/",
-      "ReplyUrls": "https://localhost:44314/, https://localhost:44314/authentication/login-callback",
+      "ReplyUrls": "https://localhost:44314/authentication/login-callback",
       "LogoutUrl": "https://localhost:44314/signout-oidc"
     }
   ],

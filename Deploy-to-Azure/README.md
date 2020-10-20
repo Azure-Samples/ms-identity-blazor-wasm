@@ -8,13 +8,13 @@ There is one web project in this sample. To deploy it to **Azure App Services**,
 - publish the projects to the **App Services**, and
 - update its client(s) to call the web site instead of the local environment.
 
-### Create `WebApp-blazor-wasm` in an Azure App Services
+### Create `WebApp-blazor-wasm` in Azure App Services
 
 1. Sign in to the [Azure portal](https://portal.azure.com).
-1. Click `Create a resource` in the top left-hand corner, select **Web** --> **Web App**, and give your web site a name, for example, `WebApp-blazor-wasm.azurewebsites.net`.
+1. Select `Create a resource` in the top left-hand corner, select **Web** --> **Web App**, and give your web site a name, for example, `WebApp-blazor-wasm.azurewebsites.net`.
 1. Next, select the `Subscription`, `Resource Group`, `App service plan and Location`. `OS` will be **Windows** and `Publish` will be **Code**.
-1. Click `Create` and wait for the App Service to be created.
-1. Once you get the `Deployment succeeded` notification, then click on `Go to resource` to navigate to the newly created App service.
+1. Select `Create` and wait for the App Service to be created.
+1. Once you get the `Deployment succeeded` notification, then select on `Go to resource` to navigate to the newly created App service.
 
 ### Publish the project to the Azure App Services
 
@@ -43,7 +43,7 @@ Follow the link to [Publish with Visual Studio](https://docs.microsoft.com/visua
 ### Update Azure App Services Configuration
 
 1. Go to [Azure portal](https://portal.azure.com).
-    - On the Settings tab, select Authentication / Authorization. Make sure `App Service Authentication` is Off. Click **Save**.
+    - On the Settings tab, select Authentication / Authorization. Make sure `App Service Authentication` is Off. Select **Save**.
 1. Browse your website. If you see the default web page of the project, the publication was successful.
 
 ### Update the Azure AD app registration for `WebApp-blazor-wasm`
@@ -63,9 +63,9 @@ Use [Stack Overflow](http://stackoverflow.com/questions/tagged/msal) to get supp
 Ask your questions on Stack Overflow first and browse existing issues to see if someone has asked your question before.
 Make sure that your questions or comments are tagged with [`azure-active-directory`] [`msal`] [`dotnet`].
 
-If you find a bug in the sample, please raise the issue on [GitHub Issues](../../issues).
+If you find a bug in the sample, raise the issue on [GitHub Issues](../../issues).
 
-To provide a recommendation, visit the following [User Voice page](https://feedback.azure.com/forums/169401-azure-active-directory).
+To provide feedback on or suggest features for Azure Active Directory, visit [User Voice page](https://feedback.azure.com/forums/169401-azure-active-directory).
 
 ## Contributing
 

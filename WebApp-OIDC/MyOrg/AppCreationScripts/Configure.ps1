@@ -116,7 +116,7 @@ Function ConfigureApplications
    $webAppAadApplication = New-AzureADApplication -DisplayName "WebApp-blazor-wasm" `
                                                   -HomePage "https://localhost:44314/" `
                                                   -LogoutUrl "https://localhost:44314/signout-oidc" `
-                                                  -ReplyUrls "https://localhost:44314/", "https://localhost:44314/authentication/login-callback" `
+                                                  -ReplyUrls "https://localhost:44314/authentication/login-callback" `
                                                   -IdentifierUris "https://$tenantName/WebApp-blazor-wasm" `
                                                   -PublicClient $False
 

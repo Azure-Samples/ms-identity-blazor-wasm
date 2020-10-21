@@ -51,9 +51,9 @@ Follow the link to [Publish with Visual Studio](https://docs.microsoft.com/visua
 1. Navigate back to to the [Azure portal](https://portal.azure.com).
 In the left-hand navigation pane, select the **Azure Active Directory** service, and then select **App registrations (Preview)**.
 1. In the resulting screen, select the `WebApp-blazor-wasm` application.
-1. In the **Authentication** page for your application, update the Logout URL fields with the address of your service, for example [https://WebApp-blazor-wasm-contoso.azurewebsites.net](https://WebApp-blazor-wasm-contoso.azurewebsites.net)
-1. From the *Branding* menu, update the **Home page URL**, to the address of your service, for example [https://WebApp-blazor-wasm-contoso.azurewebsites.net](https://WebApp-blazor-wasm-contoso.azurewebsites.net). Save the configuration.
-1. Add the same URL in the list of values of the *Authentication -> Redirect URIs* menu. If you have multiple redirect URIs, make sure that there a new entry using the App service's URI for each redirect URI.
+2. In the **Authentication** page for your application, update the Logout URL fields with the address of your service, for example [https://WebApp-blazor-wasm.azurewebsites.net](https://WebApp-blazor-wasm.azurewebsites.net)
+3. From the *Branding* menu, update the **Home page URL**, to the address of your service, for example [https://WebApp-blazor-wasm.azurewebsites.net](https://WebApp-blazor-wasm.azurewebsites.net). Save the configuration.
+4. Add the same URL in the list of values of the *Authentication -> Redirect URIs* menu. If you have multiple redirect URIs, make sure that there a new entry using the App service's URI for each redirect URI.
 
 > :warning: If your app is using an *in-memory* storage, **Azure App Services** will spin down your web site if it is inactive, and any records that your app was keeping will emptied. In addition, if you increase the instance count of your web site, requests will be distributed among the instances. Your app's records, therefore, will not be the same on each instance.
 

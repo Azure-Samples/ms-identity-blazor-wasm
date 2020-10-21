@@ -13,18 +13,16 @@ description: "This sample demonstrates how to enable your Blazor Single-page App
 
  1. [Overview](#overview)
  1. [Scenario](#scenario)
- 1. [Contents](#contents)
  1. [Prerequisites](#prerequisites)
  1. [Setup](#setup)
- 1. [Registration](#registration)
  1. [Running the sample](#running-the-sample)
  1. [Explore the sample](#explore-the-sample)
+ 1. [We'd love your feedback](#wed-love-your-feedback)
  1. [About the code](#about-the-code)
- 1. [Deployment](#deployment)
+ 1. [Next chapter of the tutorial: the Web APP calls Microsoft Graph](#next-chapter-of-the-tutorial-the-web-app-calls-microsoft-graph)
  1. [More information](#more-information)
  1. [Community Help and Support](#community-help-and-support)
  1. [Contributing](#contributing)
- 1. [Code of Conduct](#code-of-conduct)
 
 ![Build badge](https://identitydivision.visualstudio.com/_apis/public/build/definitions/a7934fdd-dcde-4492-a406-7fad6ac00e17/<BuildNumber>/badge)
 
@@ -37,11 +35,9 @@ This sample demonstrates an ASP.NET Core Blazor WebAssembly standalone applicati
 1. The ASP.NET Core Blazor WebAssembly standalone app uses the [Microsoft Authentication Library (MSAL.js)](https://github.com/AzureAD/microsoft-authentication-library-for-js) to obtain an [ID Token](https://docs.microsoft.com/azure/active-directory/develop/id-tokens) from **Azure AD**:
 1. The **ID Token** proves that the user has successfully authenticated against **Azure AD**.
 
-![Overview](./ReadmeFiles/sign-in.png)
-
 Application uses **Implicit flow** grant type provided by Microsoft identity platform.
 
-![Overview](./ReadmeFiles/spa-app.jpg)
+![Overview](./ReadmeFiles/topology.jpg)
 
 ## Prerequisites
 
@@ -145,16 +141,16 @@ Clean the solution, rebuild the solution, and run it.
 #### Step 1. Install .NET Core dependencies
 
 ```console
-   cd WebApp-OIDC\MyOrg
-   cd blazorwasm-singleOrg
-   dotnet restore
+cd WebApp-OIDC\MyOrg
+cd blazorwasm-singleOrg
+dotnet restore
 ```
 
 #### Step 2. Trust development certificates
 
 ```console
-   dotnet dev-certs https --clean
-   dotnet dev-certs https --trust
+dotnet dev-certs https --clean
+dotnet dev-certs https --trust
 ```
 
 Learn more about [HTTPS in .NET Core](https://docs.microsoft.com/aspnet/core/security/enforcing-ssl).
@@ -164,7 +160,7 @@ Learn more about [HTTPS in .NET Core](https://docs.microsoft.com/aspnet/core/sec
 In the console window execute the below command:
 
 ```console
-    dotnet run
+dotnet run
 ```
 
 ## Explore the sample
@@ -174,17 +170,19 @@ In the console window execute the below command:
 
 > :information_source: Did the sample not work for you as expected? Then please reach out to us using the [GitHub Issues](../../../../issues) page.
 
-> :thought_balloon: [Were we successful in addressing your learning objective? Do consider taking a moment to share your experience with us.](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR73pcsbpbxNJuZCMKN0lURpUMEw0UFNBVVBEV1E3VFNBU1I0T05TNzhPViQlQCN0PWcu)
+## We'd love your feedback!
+
+Were we successful in addressing your learning objective? [Do consider taking a moment to share your experience with us.](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR73pcsbpbxNJuZCMKN0lURpUMEw0UFNBVVBEV1E3VFNBU1I0T05TNzhPViQlQCN0PWcu)
 
 ## About the code
 
 1. In Program.cs, Main method registers **AddMsalAuthentication** as explained below:
 
    ```csharp
-      builder.Services.AddMsalAuthentication(options =>
-      {
-         builder.Configuration.Bind("AzureAd", options.ProviderOptions.Authentication);
-      });
+   builder.Services.AddMsalAuthentication(options =>
+   {
+      builder.Configuration.Bind("AzureAd", options.ProviderOptions.Authentication);
+   });
    ```
 
    **AddMsalAuthentication** is an extension method provided by the [Microsoft.Authentication.WebAssembly.Msal](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal) package and it provides support for authenticating users with the Microsoft Identity Platform.
@@ -280,7 +278,7 @@ For more information about how OAuth 2.0 protocols work in this scenario and oth
 
 Use [Stack Overflow](http://stackoverflow.com/questions/tagged/msal) to get support from the community.
 Ask your questions on Stack Overflow first and browse existing issues to see if someone has asked your question before.
-Make sure that your questions or comments are tagged with [`azure-active-directory` `azure-ad-b2c` `ms-identity` `adal` `msal`].
+Make sure that your questions or comments are tagged with [`azure-active-directory` `ms-identity` `msal`].
 
 If you find a bug in the sample, raise the issue on [GitHub Issues](../../issues).
 

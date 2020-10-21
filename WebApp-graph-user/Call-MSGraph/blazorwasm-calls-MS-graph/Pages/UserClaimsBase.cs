@@ -5,18 +5,19 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace blazorwasm_B2C.Pages
+namespace blazorwasm_calls_MS_graph.Pages
 {
     public class UserClaimsBase: ComponentBase
     {
+        // AuthenticationStateProvider service provides the current user's ClaimsPrincipal data.
         [Inject]
-        private AuthenticationStateProvider AuthenticationStateProvider { get; set;}
-
+        private AuthenticationStateProvider AuthenticationStateProvider { get; set;
+        }
         protected string _authMessage;
         protected IEnumerable<Claim> _claims = Enumerable.Empty<Claim>();
 
         // Defines list of claim types that will be displayed after successfull sign-in.
-        private string[] returnClaims = { "idp", "name", "oid" };
+        private string[] returnClaims = { "name", "preferred_username", "tid", "oid" };
 
         protected override async Task OnInitializedAsync()
         {

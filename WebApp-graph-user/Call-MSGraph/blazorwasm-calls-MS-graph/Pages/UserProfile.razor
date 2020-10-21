@@ -1,0 +1,27 @@
+﻿@page "/profile"
+
+@inherits UserProfileBase
+
+<AuthorizeView>
+    <Authorized>
+        <h3>User Profile</h3>
+        @{
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Property</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td> DisplayName </td>
+                    <td> @_user.DisplayName </td>
+                </tr>
+                <tr>
+                    <td> UserPrincipalName </td>
+                    <td> @_user.UserPrincipalName </td>
+                </tr>
+                </table>
+                }
+        </Authorized>
+</AuthorizeView>

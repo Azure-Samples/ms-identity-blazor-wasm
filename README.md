@@ -54,7 +54,7 @@ Please refer to each sample's README for sample-specific recommendations.
 
 |                 |               |
 |-----------------|---------------|
-| <img src="./Deploy-to-Azure/ReadmeFiles/topology.jpg" width="200"> | [**Deploy to Azure Storage and App Services**](https://github.com/Azure-Samples/ms-identity-javascript-tutorial/tree/master/5-Deployment) </br> Finally, we prepare your app for deployment to various Azure services. LEarn how to package and upload files, cConfigure authentication parameters and use the various Azure services for managing your operations. |
+| <img src="./Deploy-to-Azure/ReadmeFiles/topology.jpg" width="200"> | [**Deploy to Azure Storage and App Services**](./Deploy-to-Azure) </br> Finally, we prepare your app for deployment to various Azure services. LEarn how to package and upload files, cConfigure authentication parameters and use the various Azure services for managing your operations. |
 
 ## We'd love your feedback!
 

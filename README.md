@@ -54,7 +54,7 @@ Please refer to each sample's README for sample-specific recommendations.
 
 |                 |               |
 |-----------------|---------------|
-| <img src="./Deploy-to-Azure/ReadmeFiles/topology.jpg" width="200"> | [**Deploy to Azure Storage and App Services**](./Deploy-to-Azure) </br> Finally, we prepare your app for deployment to various Azure services. LEarn how to package and upload files, cConfigure authentication parameters and use the various Azure services for managing your operations. |
+| <img src="./Deploy-to-Azure/ReadmeFiles/topology.jpg" width="200"> | [**Deploy to Azure App Services**](./Deploy-to-Azure) </br> Finally, we prepare your app for deployment to various Azure services. LEarn how to package and upload files, cConfigure authentication parameters and use the various Azure services for managing your operations. |
 
 ## We'd love your feedback!
 
@@ -82,9 +82,9 @@ See more code samples:
 
 Use [Stack Overflow](http://stackoverflow.com/questions/tagged/msal) to get support from the community.
 Ask your questions on Stack Overflow first and browse existing issues to see if someone has asked your question before.
-Make sure that your questions or comments are tagged with [`azure-active-directory` `azure-ad-b2c` `ms-identity` `adal` `msal`].
+Make sure that your questions or comments are tagged with [`azure-active-directory` `azure-ad-b2c` `ms-identity` `msal`].
 
-If you find a bug in the sample, raise the issue on [GitHub Issues](../../issues).
+If you find a bug in the sample, raise the issue on [GitHub Issues](../issues).
 
 To provide feedback on or suggest features for Azure Active Directory, visit [User Voice page](https://feedback.azure.com/forums/169401-azure-active-directory).
 

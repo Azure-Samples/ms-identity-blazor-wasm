@@ -8,7 +8,13 @@ There is one web project in this sample. To deploy it to **Azure App Services**,
 - publish the projects to the **App Services**, and
 - update its client(s) to call the web site instead of the local environment.
 
-### Create `WebApp-blazor-wasm` in Azure App Services
+### Create Azure App Service and Publish the Project using Visual Studio
+
+Follow the link to [Create Azure App Service and Publish Project with Visual Studio](https://docs.microsoft.com/visualstudio/deployment/quickstart-deploy-to-azure?view=vs-2019).
+
+### Create Azure App Service and Publish the Project using Visual Studio Code
+
+#### Create `WebApp-blazor-wasm` in Azure App Services
 
 1. Sign in to the [Azure portal](https://portal.azure.com).
 1. Select `Create a resource` in the top left-hand corner, select **Web** --> **Web App**, and give your web site a name, for example, `WebApp-blazor-wasm.azurewebsites.net`.
@@ -16,13 +22,7 @@ There is one web project in this sample. To deploy it to **Azure App Services**,
 1. Select `Create` and wait for the App Service to be created.
 1. Once you get the `Deployment succeeded` notification, then select on `Go to resource` to navigate to the newly created App service.
 
-### Publish the project to the Azure App Services
-
-#### Publish using Visual Studio
-
-Follow the link to [Publish with Visual Studio](https://docs.microsoft.com/visualstudio/deployment/quickstart-deploy-to-azure?view=vs-2019).
-
-#### Publish using Visual Studio Code
+#### Publish the project
 
 1. Install the VS Code extension [Azure App Service](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azureappservice).
 1. Sign-in to App Service using Azure AD Account.
@@ -51,9 +51,9 @@ Follow the link to [Publish with Visual Studio](https://docs.microsoft.com/visua
 1. Navigate back to to the [Azure portal](https://portal.azure.com).
 In the left-hand navigation pane, select the **Azure Active Directory** service, and then select **App registrations (Preview)**.
 1. In the resulting screen, select the `WebApp-blazor-wasm` application.
-2. In the **Authentication** page for your application, update the Logout URL fields with the address of your service, for example [https://WebApp-blazor-wasm.azurewebsites.net](https://WebApp-blazor-wasm.azurewebsites.net)
-3. From the *Branding* menu, update the **Home page URL**, to the address of your service, for example [https://WebApp-blazor-wasm.azurewebsites.net](https://WebApp-blazor-wasm.azurewebsites.net). Save the configuration.
-4. Add the same URL in the list of values of the *Authentication -> Redirect URIs* menu. If you have multiple redirect URIs, make sure that there a new entry using the App service's URI for each redirect URI.
+1. In the **Authentication** page for your application, update the Logout URL fields with the address of your service, for example [https://WebApp-blazor-wasm.azurewebsites.net](https://WebApp-blazor-wasm.azurewebsites.net)
+1. From the *Branding* menu, update the **Home page URL**, to the address of your service, for example [https://WebApp-blazor-wasm.azurewebsites.net](https://WebApp-blazor-wasm.azurewebsites.net). Save the configuration.
+1. Add the same URL in the list of values of the *Authentication -> Redirect URIs* menu. If you have multiple redirect URIs, make sure that there a new entry using the App service's URI for each redirect URI.
 
 > :warning: If your app is using an *in-memory* storage, **Azure App Services** will spin down your web site if it is inactive, and any records that your app was keeping will emptied. In addition, if you increase the instance count of your web site, requests will be distributed among the instances. Your app's records, therefore, will not be the same on each instance.
 

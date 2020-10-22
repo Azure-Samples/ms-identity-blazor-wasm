@@ -181,3 +181,7 @@ app {
         display: block;
     }
 }
+.fix-bottom {
+    bottom: 0;
+    position: fixed !important;
+}

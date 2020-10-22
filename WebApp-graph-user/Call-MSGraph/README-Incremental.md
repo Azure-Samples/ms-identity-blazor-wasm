@@ -17,6 +17,7 @@ description: "This sample demonstrates how to enable your Blazor Single-page App
  1. [Running the sample](#running-the-sample)
  1. [Explore the sample](#explore-the-sample)
  1. [We'd love your feedback](#wed-love-your-feedback)
+ 1. [Deployment](#deployment)
  1. [More information](#more-information)
  1. [Community Help and Support](#community-help-and-support)
  1. [Contributing](#contributing)
@@ -102,6 +103,7 @@ dotnet run
 
 1. Open your browser and navigate to `https://localhost:44314`.
 1. Select the **Log in** button on the top right corner. You will see claims from the signed-in user's token.
+1. Select **Profile** from navigation bar on the left. If user has signed-in then information fetched from Microsoft Graph is displayed, otherwise login screen will appear.
 
 > :information_source: Did the sample not work for you as expected? Then please reach out to us using the [GitHub Issues](../../../../issues) page.
 
@@ -135,7 +137,7 @@ This section, here, is only about the additional code added to let the Web App c
                 options.ProviderOptions.AdditionalScopesToConsent.Add(scope);
             }
         });
-        services.AddScoped<IAuthenticationProvider, NoOpGraphAuthenticationProvider>();
+        services.AddScoped<IAuthenticationProvider, GraphAuthenticationProvider>();
         services.AddScoped<IHttpProvider, HttpClientHttpProvider>(sp => new HttpClientHttpProvider(new HttpClient()));
         services.AddScoped<GraphServiceClient>();
         return services;
@@ -161,6 +163,10 @@ This section, here, is only about the additional code added to let the Web App c
         }
     }
     ```
+
+## Deployment
+
+See [README.md](../../Deploy-to-Azure/README.md) to deploy this sample to Azure.
 
 ## More information
 

@@ -1,14 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.Graph;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Json;
-//using System.Net.Http;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace blazorwasm_calls_MS_graph.Pages

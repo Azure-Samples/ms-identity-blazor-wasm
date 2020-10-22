@@ -10,8 +10,17 @@ using System.Threading.Tasks;
 
 namespace blazorwasm_calls_MS_graph.Data
 {
+    /// <summary>
+    /// Adds services and implements methods to use Microsoft Graph SDK.
+    /// </summary>
     internal static class GraphClientExtensions
     {
+        /// <summary>
+        /// Extension method for adding services to IServiceCollection.
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="scopes"></param>
+        /// <returns></returns>
         public static IServiceCollection AddMicrosoftGraphClient(this IServiceCollection services, params string[] scopes)
         {
             services.Configure<RemoteAuthenticationOptions<MsalProviderOptions>>(options =>
@@ -23,15 +32,19 @@ namespace blazorwasm_calls_MS_graph.Data
                 }
             });
 
-            services.AddScoped<IAuthenticationProvider, NoOpGraphAuthenticationProvider>();
+            services.AddScoped<IAuthenticationProvider, GraphAuthenticationProvider>();
             services.AddScoped<IHttpProvider, HttpClientHttpProvider>(sp => new HttpClientHttpProvider(new HttpClient()));
             services.AddScoped<GraphServiceClient>();
             return services;
         }
 
-        private class NoOpGraphAuthenticationProvider : IAuthenticationProvider
+        /// <summary>
+        /// Implements IAuthenticationProvider interface.
+        /// Tries to get an access token for Microsoft Graph.
+        /// </summary>
+        private class GraphAuthenticationProvider : IAuthenticationProvider
         {
-            public NoOpGraphAuthenticationProvider(IAccessTokenProvider provider)
+            public GraphAuthenticationProvider(IAccessTokenProvider provider)
             {
                 Provider = provider;
             }

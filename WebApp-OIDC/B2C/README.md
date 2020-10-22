@@ -241,12 +241,6 @@ Were we successful in addressing your learning objective? [Do consider taking a 
     }
    ```
 
-## Next chapter of the tutorial: the Web APP calls Microsoft Graph
-
-In the next chapter, we will enhance this Web APP to call downstream Web API (Microsoft Graph).
-
-See [Call-MSGraph-B2C](../../WebApp-graph-user/Call-MSGraph-B2C/README-Incremental.md)
-
 ## More information
 
 - [What is Azure Active Directory B2C?](https://docs.microsoft.com/azure/active-directory-b2c/overview)

@@ -183,5 +183,5 @@ app {
 }
 .fix-bottom {
     bottom: 0;
-    position: fixed !important;
+    position: fixed!important;
 }

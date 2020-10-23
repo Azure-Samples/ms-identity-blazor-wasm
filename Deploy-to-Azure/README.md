@@ -1,4 +1,4 @@
-# Deployment
+# Deploy your app to Azure
 
 ## Deployment to Azure App Services
 

@@ -16,10 +16,10 @@ namespace blazorwasm_calls_MS_graph.Data
     internal static class GraphClientExtensions
     {
         /// <summary>
-        /// Extension method for adding services to IServiceCollection.
+        /// Extension method for adding the Microsoft Graph SDK to IServiceCollection.
         /// </summary>
         /// <param name="services"></param>
-        /// <param name="scopes"></param>
+        /// <param name="scopes">The MS Graph scopes to request</param>
         /// <returns></returns>
         public static IServiceCollection AddMicrosoftGraphClient(this IServiceCollection services, params string[] scopes)
         {

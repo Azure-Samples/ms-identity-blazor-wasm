@@ -16,7 +16,6 @@ description: "This sample demonstrates how to enable your Blazor Single-page App
  1. [How to run this sample](#how-to-run-this-sample)
  1. [Running the sample](#running-the-sample)
  1. [Explore the sample](#explore-the-sample)
- 1. [We'd love your feedback](#wed-love-your-feedback)
  1. [Deployment](#deployment)
  1. [More information](#more-information)
  1. [Community Help and Support](#community-help-and-support)
@@ -26,9 +25,7 @@ description: "This sample demonstrates how to enable your Blazor Single-page App
 
 In the second chapter, we extend our ASP.NET Core Blazor WebAssembly standalone application to call a downstream API (Microsoft Graph) to provide additional value.
 
-This sample demonstrates an ASP.NET Core Blazor WebAssembly standalone application that authenticates users against [Azure Active Directory (Azure AD)](https://azure.microsoft.com/services/active-directory/external-identities/b2c/) using the [Microsoft Authentication Library for JavaScript](https://github.com/AzureAD/microsoft-authentication-library-for-js)(MSAL.js).
-
-It then acquires an Access Token for Microsoft Graph and calls the [Microsoft Graph API](https://docs.microsoft.com/graph/overview).
+This sample demonstrates an ASP.NET Core Blazor WebAssembly standalone application that authenticates users against [Azure Active Directory (Azure AD)](https://azure.microsoft.com/services/active-directory/external-identities/b2c/) using the [Microsoft Authentication Library for JavaScript](https://github.com/AzureAD/microsoft-authentication-library-for-js) (MSAL.js). It then acquires an Access Token for Microsoft Graph and calls the [Microsoft Graph API](https://docs.microsoft.com/graph/overview).
 
 ## Scenario
 
@@ -36,6 +33,7 @@ With respect to the previous chapter of the tutorial, this chapter adds the foll
 
 1. The client application acquires an Access Token for Microsoft Graph.
 1. The **Access Token** is used as a *bearer* token to authorize the user to call the [Microsoft Graph API](https://docs.microsoft.com/graph/overview)
+1. **Microsoft Graph API** responds with the resource that the user has access to.
 
 ![Overview](./ReadmeFiles/topology.jpg)
 
@@ -63,6 +61,10 @@ cd ms-identity-blazor-wasm\WebApp-graph-user\Call-MSGraph
    - In the *Commonly used Microsoft APIs* section, select **Microsoft Graph**
    - In the **Delegated permissions** section, select the **User.Read** in the list. Use the search box if necessary.
    - Select the **Add permissions** button at the bottom.
+
+#### Configure the web app (WebApp-blazor-wasm)
+
+1. Open `blazorwasm-calls-MS-graph\wwwroot\appsettings.json` file and copy the details from `WebApp-OIDC\blazorwasm-singleOrg\wwwroot\appsettings.json` file.
 
 ## Running the sample
 
@@ -101,9 +103,16 @@ dotnet run
 
 ## Explore the sample
 
+> If you are using incognito mode of browser to run this sample then allow third party cookies.
+
 1. Open your browser and navigate to `https://localhost:44314`.
 1. Select the **Log in** button on the top right corner. You will see claims from the signed-in user's token.
+
+    ![UserClaims](./ReadmeFiles/UserClaims.png)
+
 1. Select **Profile** from navigation bar on the left. If user has signed-in then information fetched from Microsoft Graph is displayed, otherwise login screen will appear.
+
+    ![UserProfile](./ReadmeFiles/UserProfile.png)
 
 > :information_source: Did the sample not work for you as expected? Then please reach out to us using the [GitHub Issues](../../../../issues) page.
 
@@ -172,6 +181,7 @@ See [README.md](../../Deploy-to-Azure/README.md) to deploy this sample to Azure.
 
 - [Microsoft Graph permissions reference](https://docs.microsoft.com/graph/permissions-reference)
 - [Authentication and authorization basics for Microsoft Graph](https://docs.microsoft.com/graph/auth/auth-concepts)
+- [ASP.NET Core Blazor WebAssembly additional security scenarios](https://docs.microsoft.com/aspnet/core/blazor/security/webassembly/additional-scenarios)
 
 ## Community Help and Support
 

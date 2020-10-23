@@ -20,10 +20,12 @@ We recommend following the chapters in successive order. However, the code sampl
 
 ## Prerequisites
 
-- Either [Visual Studio](https://visualstudio.microsoft.com/downloads/) or [Visual Studio Code](https://code.visualstudio.com/download) and [.NET Core SDK](https://www.microsoft.com/net/learn/get-started)
+- Either [Visual Studio](https://visualstudio.microsoft.com/downloads/) or [Visual Studio Code](https://code.visualstudio.com/download)
 - System should have .NET SDK v3.1.6 or above. You can install it from [Download .NET Core 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1)
 - An **Azure AD** tenant. For more information see: [How to get an Azure AD tenant](https://docs.microsoft.com/azure/active-directory/develop/quickstart-create-new-tenant)
-- A user account in your **Azure AD** tenant. This sample will not work with a **personal Microsoft account**. Therefore, if you signed in to the [Azure portal](https://portal.azure.com) with a personal account and have never created a user account in your directory before, you need to do that now.
+- A user account in your **Azure AD** tenant.
+- An **Azure AD B2C** tenant. For more information see: [How to get an Azure AD B2C tenant](https://docs.microsoft.com/azure/active-directory-b2c/tutorial-create-tenant)
+- A user account in your **Azure AD B2C** tenant.
 
 Please refer to each sample's README for sample-specific prerequisites.
 
@@ -54,7 +56,7 @@ Please refer to each sample's README for sample-specific recommendations.
 
 |                 |               |
 |-----------------|---------------|
-| <img src="./Deploy-to-Azure/ReadmeFiles/topology.jpg" width="200"> | [**Deploy to Azure App Services**](./Deploy-to-Azure) </br> Finally, we prepare your app for deployment to various Azure services. LEarn how to package and upload files, cConfigure authentication parameters and use the various Azure services for managing your operations. |
+| <img src="./Deploy-to-Azure/ReadmeFiles/topology.jpg" width="200"> | [**Deploy to Azure App Services**](./Deploy-to-Azure) </br> Finally, we prepare your app for deployment to various Azure services. Learn how to package and upload files, Configure authentication parameters and use the various Azure services for managing your operations. |
 
 ## We'd love your feedback!
 
@@ -72,6 +74,9 @@ Learn more about the **Microsoft identity platform**:
 - [Understand user and admin consent](https://docs.microsoft.com/azure/active-directory/develop/howto-convert-app-to-be-multi-tenant#understand-user-and-admin-consent)
 - [Application and service principal objects in Azure Active Directory](https://docs.microsoft.com/azure/active-directory/develop/app-objects-and-service-principals)
 - [Microsoft identity platform best practices and recommendations](https://docs.microsoft.com/azure/active-directory/develop/identity-platform-integration-checklist)
+- [Secure an ASP.NET Core Blazor WebAssembly standalone app with Azure Active Directory](https://docs.microsoft.com/aspnet/core/blazor/security/webassembly/standalone-with-azure-active-directory)
+- [Secure an ASP.NET Core Blazor WebAssembly standalone app with Azure Active Directory B2C](https://docs.microsoft.com/aspnet/core/blazor/security/webassembly/standalone-with-azure-active-directory-b2c)
+- [ASP.NET Core Blazor WebAssembly additional security scenarios](https://docs.microsoft.com/aspnet/core/blazor/security/webassembly/additional-scenarios)
 
 See more code samples:
 

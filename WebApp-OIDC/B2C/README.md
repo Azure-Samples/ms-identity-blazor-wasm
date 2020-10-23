@@ -18,7 +18,6 @@ description: "This sample demonstrates how to enable your Blazor Single-page App
  1. [Registration](#registration)
  1. [Running the sample](#running-the-sample)
  1. [Explore the sample](#explore-the-sample)
- 1. [We'd love your feedback](#wed-love-your-feedback)
  1. [About the code](#about-the-code)
  1. [Next chapter of the tutorial: the Web APP calls Microsoft Graph](#next-chapter-of-the-tutorial-the-web-app-calls-microsoft-graph)
  1. [More information](#more-information)
@@ -47,7 +46,7 @@ This application uses **Implicit flow** grant type provided by Microsoft identit
 
 ## Prerequisites
 
-- Either [Visual Studio](https://visualstudio.microsoft.com/downloads/) or [Visual Studio Code](https://code.visualstudio.com/download) and [.NET Core SDK](https://www.microsoft.com/net/learn/get-started)
+- Either [Visual Studio](https://visualstudio.microsoft.com/downloads/) or [Visual Studio Code](https://code.visualstudio.com/download)
 - System should have .NET SDK v3.1.6 or above. You can install it from [Download .NET Core 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1)
 - An **Azure AD B2C** tenant. For more information see: [How to get an Azure AD B2C tenant](https://docs.microsoft.com/azure/active-directory-b2c/tutorial-create-tenant)
 - A user account in your **Azure AD B2C** tenant.
@@ -154,8 +153,12 @@ dotnet run
 
 ## Explore the sample
 
+> If you are using incognito mode of browser to run this sample then allow third party cookies.
+
 1. Open your browser and navigate to `https://localhost:44314`.
 1. Select the **Log in** button on the top right corner. You will see claims from the signed-in user's token.
+
+![UserClaims](./ReadmeFiles/UserClaims.png)
 
 > :information_source: Did the sample not work for you as expected? Then please reach out to us using the [GitHub Issues](../../../../issues) page.
 
@@ -259,6 +262,7 @@ See [Call-MSGraph-B2C](../../WebApp-graph-user/Call-MSGraph-B2C/README-Increment
 - [Application types that can be used in Active Directory B2C](https://docs.microsoft.com/azure/active-directory-b2c/application-types)
 - [Recommendations and best practices for Azure Active Directory B2C](https://docs.microsoft.com/azure/active-directory-b2c/best-practices)
 - [Azure AD B2C session](https://docs.microsoft.com/azure/active-directory-b2c/session-overview)
+- [Secure an ASP.NET Core Blazor WebAssembly standalone app with Azure Active Directory B2C](https://docs.microsoft.com/aspnet/core/blazor/security/webassembly/standalone-with-azure-active-directory-b2c)
 
 For more information about how OAuth 2.0 protocols work in this scenario and other scenarios, see [Authentication Scenarios for Azure AD](https://docs.microsoft.com/azure/active-directory/develop/authentication-flows-app-scenarios).
 

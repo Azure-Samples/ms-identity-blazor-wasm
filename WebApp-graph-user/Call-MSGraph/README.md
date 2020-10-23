@@ -9,32 +9,31 @@ name: Enable your Blazor Single-page Application (SPA) to sign-in users with the
 urlFragment: ms-identity-blazor-wasm
 description: "This sample demonstrates how to enable your Blazor Single-page Application (SPA) to sign-in users with the Microsoft identity platform"
 ---
-# Enable your Blazor Single-page Application (SPA) to sign-in users with the Microsoft identity platform
+# Enable your Blazor Single-page Application (SPA) to authorize users for calling Microsoft Graph
 
  1. [Overview](#overview)
  1. [Scenario](#scenario)
- 1. [Prerequisites](#prerequisites)
- 1. [Setup](#setup)
+ 1. [How to run this sample](#how-to-run-this-sample)
  1. [Running the sample](#running-the-sample)
  1. [Explore the sample](#explore-the-sample)
- 1. [About the code](#about-the-code)
- 1. [Next chapter of the tutorial: the Web APP calls Microsoft Graph](#next-chapter-of-the-tutorial-the-web-app-calls-microsoft-graph)
+ 1. [Deployment](#deployment)
  1. [More information](#more-information)
  1. [Community Help and Support](#community-help-and-support)
  1. [Contributing](#contributing)
 
-![Build badge](https://identitydivision.visualstudio.com/_apis/public/build/definitions/a7934fdd-dcde-4492-a406-7fad6ac00e17/<BuildNumber>/badge)
-
 ## Overview
 
-This sample demonstrates an ASP.NET Core Blazor WebAssembly standalone application that authenticates users against Azure AD.
+In the second chapter, we extend our ASP.NET Core Blazor WebAssembly standalone application to call a downstream API (Microsoft Graph) to provide additional value.
+
+This sample demonstrates an ASP.NET Core Blazor WebAssembly standalone application that authenticates users against [Azure Active Directory (Azure AD)](https://azure.microsoft.com/services/active-directory/external-identities/b2c/) using the [Microsoft Authentication Library for JavaScript](https://github.com/AzureAD/microsoft-authentication-library-for-js) (MSAL.js). It then acquires an Access Token for Microsoft Graph and calls the [Microsoft Graph API](https://docs.microsoft.com/graph/overview).
 
 ## Scenario
 
-1. The ASP.NET Core Blazor WebAssembly standalone app uses the [Microsoft Authentication Library (MSAL.js)](https://github.com/AzureAD/microsoft-authentication-library-for-js) to obtain an [ID Token](https://docs.microsoft.com/azure/active-directory/develop/id-tokens) from **Azure AD**:
-1. The **ID Token** proves that the user has successfully authenticated against **Azure AD**.
+With respect to the previous chapter of the tutorial, this chapter adds the following steps:
 
-Application uses **Implicit flow** grant type provided by Microsoft identity platform.
+1. The client application acquires an Access Token for Microsoft Graph.
+1. The **Access Token** is used as a *bearer* token to authorize the user to call the [Microsoft Graph API](https://docs.microsoft.com/graph/overview)
+1. **Microsoft Graph API** responds with the resource that the user has access to.
 
 ![Overview](./ReadmeFiles/topology.jpg)
 
@@ -53,7 +52,7 @@ From your shell or command line:
 
 ```console
 git clone https://github.com/Azure-Samples/ms-identity-blazor-wasm.git
-cd ms-identity-blazor-wasm\WebApp-OIDC\MyOrg
+cd ms-identity-blazor-wasm\WebApp-graph-user\Call-MSGraph
 ```
 
 or download and extract the repository .zip file.
@@ -114,8 +113,14 @@ As a first step you'll need to:
 1. In the app's registration screen, find and note the **Application (client) ID**. You use this value in your app's configuration file(s) later in your code.
 1. In the app's registration screen, select **Authentication** in the menu.
    - In the **Logout URL** section, set it to `https://localhost:44314/signout-oidc`.
-   - In **Implicit grant** section, select the check box for ID tokens.
+   - In **Implicit grant** section, select the check box for ID tokens and Access tokens.
 1. Select **Save** to save your changes.
+1. In the app's registration screen, select the **API permissions** blade in the left to open the page where we add access to the APIs that your application needs.
+   - Select the **Add a permission** button and then,
+   - Ensure that the **Microsoft APIs** tab is selected.
+   - In the *Commonly used Microsoft APIs* section, select **Microsoft Graph**
+   - In the **Delegated permissions** section, select the **User.Read** in the list. Use the search box if necessary.
+   - Select the **Add permissions** button at the bottom.
 
 #### Configure the web app (WebApp-blazor-wasm) to use your app registration
 
@@ -123,7 +128,7 @@ Open the project in your IDE (like Visual Studio or Visual Studio Code) to confi
 
 > In the steps below, "ClientID" is the same as "Application ID" or "AppId".
 
-1. Open the `blazorwasm-singleOrg\wwwroot\appsettings.json` file.
+1. Open the `blazorwasm-calls-MS-graph\wwwroot\appsettings.json` file.
 1. Find the key `ClientId` and replace the existing value with the application ID (clientId) of the `WebApp-blazor-wasm` application copied from the Azure portal.
 1. Find the key `Authority` and concatenate the tenant id as shown here: 'https://login.microsoftonline.com/[enter_your_tenantId]'.
 
@@ -140,8 +145,8 @@ Clean the solution, rebuild the solution, and run it.
 #### Step 1. Install .NET Core dependencies
 
 ```console
-cd WebApp-OIDC\MyOrg
-cd blazorwasm-singleOrg
+cd WebApp-graph-user\Call-MSGraph
+cd blazorwasm-calls-MS-graph
 dotnet restore
 ```
 
@@ -169,7 +174,11 @@ dotnet run
 1. Open your browser and navigate to `https://localhost:44314`.
 1. Select the **Log in** button on the top right corner. You will see claims from the signed-in user's token.
 
-![UserClaims](./ReadmeFiles/UserClaims.png)
+    ![UserClaims](./ReadmeFiles/UserClaims.png)
+
+1. Select **Profile** from navigation bar on the left. If user has signed-in then information fetched from Microsoft Graph is displayed, otherwise login screen will appear.
+
+    ![UserProfile](./ReadmeFiles/UserProfile.png)
 
 > :information_source: Did the sample not work for you as expected? Then please reach out to us using the [GitHub Issues](../../../../issues) page.
 
@@ -260,23 +269,63 @@ Were we successful in addressing your learning objective? [Do consider taking a 
     }
    ```
 
-## Next chapter of the tutorial: the Web APP calls Microsoft Graph
+1. In Program.cs, Main method registers AddMicrosoftGraphClient as explained below:
 
-In the next chapter, we will enhance this Web APP to call downstream Web API (Microsoft Graph).
+    ```csharp
+    builder.Services.AddMicrosoftGraphClient("https://graph.microsoft.com/User.Read");
+    ```
 
-See [Call-MSGraph](../../WebApp-graph-user/Call-MSGraph/README-Incremental.md)
+    **AddMsalAuthentication** is an extension method provided by GraphClientExtensions.cs class.
+
+1. In GraphClientExtensions.cs class, **AddMicrosoftGraphClient** method registers services required to fetch Access Token in service collection as below:
+
+    ```csharp
+    public static IServiceCollection AddMicrosoftGraphClient(this IServiceCollection services, params string[] scopes)
+    {
+        services.Configure<RemoteAuthenticationOptions<MsalProviderOptions>>(options =>
+        {
+            foreach (var scope in scopes)
+            {
+                options.ProviderOptions.AdditionalScopesToConsent.Add(scope);
+            }
+        });
+        services.AddScoped<IAuthenticationProvider, GraphAuthenticationProvider>();
+        services.AddScoped<IHttpProvider, HttpClientHttpProvider>(sp => new HttpClientHttpProvider(new HttpClient()));
+        services.AddScoped<GraphServiceClient>();
+        return services;
+    }
+    ```
+
+1. **UserProfile.razor** component displays user information retrieved by **OnInitializedAsync** method of **UserProfileBase.cs**.
+
+    **UserProfileBase.cs** calls Microsoft Graph `/me` endpoint to retrieve user information.
+
+    ```csharp
+    public class UserProfileBase : ComponentBase
+    {
+        [Inject]
+        GraphServiceClient GraphClient { get; set; }
+        protected User _user=new User();
+        protected override async Task OnInitializedAsync()
+        {
+           ...
+                var request = GraphClient.Me.Request();
+                _user = await request.GetAsync();
+            ...
+        }
+    }
+    ```
+
+## Deployment
+
+See [README.md](../../Deploy-to-Azure/README.md) to deploy this sample to Azure.
 
 ## More information
 
-- [Microsoft identity platform (Azure Active Directory for developers)](https://docs.microsoft.com/azure/active-directory/develop/)
-- [Overview of Microsoft Authentication Library (MSAL)](https://docs.microsoft.com/azure/active-directory/develop/msal-overview)
-- [Quickstart: Register an application with the Microsoft identity platform (Preview)](https://docs.microsoft.com/azure/active-directory/develop/quickstart-register-app)
-- [Understanding Azure AD application consent experiences](https://docs.microsoft.com/azure/active-directory/develop/application-consent-experience)
-- [Application and service principal objects in Azure Active Directory](https://docs.microsoft.com/azure/active-directory/develop/app-objects-and-service-principals)
-- [MSAL code samples](https://docs.microsoft.com/azure/active-directory/develop/sample-v2-code)
+- [Microsoft Graph permissions reference](https://docs.microsoft.com/graph/permissions-reference)
+- [Authentication and authorization basics for Microsoft Graph](https://docs.microsoft.com/graph/auth/auth-concepts)
 - [Secure an ASP.NET Core Blazor WebAssembly standalone app with Azure Active Directory](https://docs.microsoft.com/aspnet/core/blazor/security/webassembly/standalone-with-azure-active-directory)
-
-For more information about how OAuth 2.0 protocols work in this scenario and other scenarios, see [Authentication Scenarios for Azure AD](https://docs.microsoft.com/azure/active-directory/develop/authentication-flows-app-scenarios).
+- [ASP.NET Core Blazor WebAssembly additional security scenarios](https://docs.microsoft.com/aspnet/core/blazor/security/webassembly/additional-scenarios)
 
 ## Community Help and Support
 

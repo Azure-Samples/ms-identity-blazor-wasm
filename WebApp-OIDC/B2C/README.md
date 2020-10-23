@@ -5,11 +5,11 @@ languages:
 products:
   - aspnet-core
   - azure-active-directory-b2c
-name: Enable your Blazor Single-page Application (SPA) to sign-in users with the Microsoft identity platform in Azure AD B2C
+name: Enable your Blazor WebAssembly to sign-in users with the Microsoft identity platform in Azure AD B2C
 urlFragment: ms-identity-blazor-wasm
-description: "This sample demonstrates how to enable your Blazor Single-page Application (SPA) to sign-in users against Azure AD B2C"
+description: "This sample demonstrates how to enable your Blazor WebAssembly to sign-in users against Azure AD B2C"
 ---
-# Enable your Blazor Single-page Application (SPA) to sign-in users with the Microsoft identity platform in Azure AD B2C
+# Enable your Blazor WebAssembly to sign-in users with the Microsoft identity platform in Azure AD B2C
 
  1. [Overview](#overview)
  1. [Scenario](#scenario)
@@ -156,7 +156,7 @@ dotnet run
 > If you are using incognito mode of browser to run this sample then allow third party cookies.
 
 1. Open your browser and navigate to `https://localhost:44314`.
-1. Select the **Log in** button on the top right corner. You will see claims from the signed-in user's token.
+1. Select the **Sign in** button on the top right corner. You will see claims from the signed-in user's token.
 
 ![UserClaims](./ReadmeFiles/UserClaims.png)
 
@@ -165,6 +165,18 @@ dotnet run
 ## We'd love your feedback!
 
 Were we successful in addressing your learning objective? [Do consider taking a moment to share your experience with us.](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR73pcsbpbxNJuZCMKN0lURpUMEw0UFNBVVBEV1E3VFNBU1I0T05TNzhPViQlQCN0PWcu)
+
+## How was the code created
+
+Create the Web App using Blazor WebAssembly template:
+
+1. Create the Web App using Blazor WebAssembly template:
+
+   ```console
+   dotnet new blazorwasm --auth IndividualB2C
+   ```
+
+1. Add `UserClaims.razor` component and `UserClaimsBase.cs` class.
 
 ## About the code
 
@@ -180,41 +192,6 @@ Were we successful in addressing your learning objective? [Do consider taking a 
    **AddMsalAuthentication** is an extension method provided by the [Microsoft.Authentication.WebAssembly.Msal](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal) package and it provides support for authenticating users.
 
 1. **Index.razor** is the landing page when application starts. Index.razor contains child component called `UserClaims`. If user is authenticated successfully, `UserClaims` displays a few claims present in the ID Token issued by Azure AD B2C.
-
-   The **AuthorizeView** component selectively displays UI depending on whether the user is authorized to see it.
-
-   ```csharp
-   @inherits UserClaimsBase
-   <AuthorizeView>
-      <Authorized>
-         <h3>Claims from the signed-in user's token</h3>
-         @if (_claims.Count() > 0)
-         {
-               <table class="table">
-                  <thead>
-                     <tr>
-                           <th>Claim Type</th>
-                           <th>Value</th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     @foreach (var claim in _claims)
-                     {
-                           <tr>
-                              <td>@claim.Type</td>
-                              <td>@claim.Value</td>
-                           </tr>
-                     }
-                  </tbody>
-               </table>
-         }
-         else
-         {
-               <h3>_authMessage</h3>
-         }
-      </Authorized>
-   </AuthorizeView>
-   ```
 
 1. In the _UserClaimsBase.cs_ class, **GetClaimsPrincipalData** method retrieves signed-in user's claims using the **GetAuthenticationStateAsync()** method of the **AuthenticationStateProvider** class.
 

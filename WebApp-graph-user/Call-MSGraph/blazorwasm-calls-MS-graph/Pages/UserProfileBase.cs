@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 
 namespace blazorwasm_calls_MS_graph.Pages
 {
+    /// <summary>
+    /// Base class for UserProfile component.
+    /// Injects GraphServiceClient and calls Microsoft Graph /me endpoint.
+    /// </summary>
     public class UserProfileBase : ComponentBase
     {
         [Inject]

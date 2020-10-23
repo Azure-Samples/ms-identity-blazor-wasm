@@ -5,11 +5,11 @@ languages:
 products:
   - aspnet-core
   - azure-active-directory
-name: Enable your Blazor Single-page Application (SPA) to sign-in users with the Microsoft identity platform
+name: Enable your Blazor WebAssembly to sign-in users with the Microsoft identity platform
 urlFragment: ms-identity-blazor-wasm
-description: "This sample demonstrates how to enable your Blazor Single-page Application (SPA) to sign-in users with the Microsoft identity platform"
+description: "This sample demonstrates how to enable your Blazor WebAssembly to sign-in users with the Microsoft identity platform"
 ---
-# Enable your Blazor Single-page Application (SPA) to authorize users for calling Microsoft Graph
+# Enable your Blazor WebAssembly to authorize users for calling Microsoft Graph
 
  1. [Overview](#overview)
  1. [Scenario](#scenario)
@@ -25,7 +25,7 @@ description: "This sample demonstrates how to enable your Blazor Single-page App
 
 In the second chapter, we extend our ASP.NET Core Blazor WebAssembly standalone application to call a downstream API (Microsoft Graph) to provide additional value.
 
-This sample demonstrates an ASP.NET Core Blazor WebAssembly standalone application that authenticates users against [Azure Active Directory (Azure AD)](https://azure.microsoft.com/services/active-directory/external-identities/b2c/) using the [Microsoft Authentication Library for JavaScript](https://github.com/AzureAD/microsoft-authentication-library-for-js) (MSAL.js). It then acquires an Access Token for Microsoft Graph and calls the [Microsoft Graph API](https://docs.microsoft.com/graph/overview).
+This sample demonstrates an ASP.NET Core Blazor WebAssembly standalone application that authenticates users against [Azure Active Directory (Azure AD)](https://docs.microsoft.com/azure/active-directory/fundamentals/active-directory-whatis) using the [Microsoft Authentication Library for JavaScript](https://github.com/AzureAD/microsoft-authentication-library-for-js) (MSAL.js). It then acquires an Access Token for Microsoft Graph and calls the [Microsoft Graph API](https://docs.microsoft.com/graph/overview).
 
 ## Scenario
 
@@ -172,7 +172,7 @@ dotnet run
 > If you are using incognito mode of browser to run this sample then allow third party cookies.
 
 1. Open your browser and navigate to `https://localhost:44314`.
-1. Select the **Log in** button on the top right corner. You will see claims from the signed-in user's token.
+1. Select the **Sign in** button on the top right corner. You will see claims from the signed-in user's token.
 
     ![UserClaims](./ReadmeFiles/UserClaims.png)
 
@@ -200,41 +200,6 @@ Were we successful in addressing your learning objective? [Do consider taking a 
    **AddMsalAuthentication** is an extension method provided by the [Microsoft.Authentication.WebAssembly.Msal](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal) package and it provides support for authenticating users with the Microsoft Identity Platform.
 
 1. **Index.razor** is the landing page when application starts. Index.razor contains child component called `UserClaims`. If user is authenticated successfully, `UserClaims` displays a few claims present in the ID Token issued by Azure AD.
-
-   The **AuthorizeView** component selectively displays UI depending on whether the user is authorized to see it.
-
-   ```csharp
-   @inherits UserClaimsBase
-   <AuthorizeView>
-      <Authorized>
-         <h3>Claims from the signed-in user's token</h3>
-         @if (_claims.Count() > 0)
-         {
-               <table class="table">
-                  <thead>
-                     <tr>
-                           <th>Claim Type</th>
-                           <th>Value</th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     @foreach (var claim in _claims)
-                     {
-                           <tr>
-                              <td>@claim.Type</td>
-                              <td>@claim.Value</td>
-                           </tr>
-                     }
-                  </tbody>
-               </table>
-         }
-         else
-         {
-               <h3>_authMessage</h3>
-         }
-      </Authorized>
-   </AuthorizeView>
-   ```
 
 1. In the `UserClaimsBase.cs` class, **GetClaimsPrincipalData** method retrieves signed-in user's claims using the **GetAuthenticationStateAsync()** method of the **AuthenticationStateProvider** class.
 
@@ -277,26 +242,7 @@ Were we successful in addressing your learning objective? [Do consider taking a 
 
     **AddMsalAuthentication** is an extension method provided by GraphClientExtensions.cs class.
 
-1. In GraphClientExtensions.cs class, **AddMicrosoftGraphClient** method registers services required to fetch Access Token in service collection as below:
-
-    ```csharp
-    public static IServiceCollection AddMicrosoftGraphClient(this IServiceCollection services, params string[] scopes)
-    {
-        services.Configure<RemoteAuthenticationOptions<MsalProviderOptions>>(options =>
-        {
-            foreach (var scope in scopes)
-            {
-                options.ProviderOptions.AdditionalScopesToConsent.Add(scope);
-            }
-        });
-        services.AddScoped<IAuthenticationProvider, GraphAuthenticationProvider>();
-        services.AddScoped<IHttpProvider, HttpClientHttpProvider>(sp => new HttpClientHttpProvider(new HttpClient()));
-        services.AddScoped<GraphServiceClient>();
-        return services;
-    }
-    ```
-
-1. **UserProfile.razor** component displays user information retrieved by **OnInitializedAsync** method of **UserProfileBase.cs**.
+1. **UserProfile.razor** component displays user information retrieved by **GetUserProfile** method of **UserProfileBase.cs**.
 
     **UserProfileBase.cs** calls Microsoft Graph `/me` endpoint to retrieve user information.
 
@@ -308,7 +254,11 @@ Were we successful in addressing your learning objective? [Do consider taking a 
         protected User _user=new User();
         protected override async Task OnInitializedAsync()
         {
-           ...
+            await GetUserProfile();
+        }
+        private async Task GetUserProfile()
+        {
+            ...
                 var request = GraphClient.Me.Request();
                 _user = await request.GetAsync();
             ...

@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace blazorwasm_singleOrg.Pages
 {
+    /// <summary>
+    /// Base class for UserClaims component.
+    /// Retrieves claims present in the ID Token issued by Azure AD.
+    /// </summary>
     public class UserClaimsBase: ComponentBase
     {
         // AuthenticationStateProvider service provides the current user's ClaimsPrincipal data.

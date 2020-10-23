@@ -39,20 +39,20 @@ Please refer to each sample's README for sample-specific recommendations.
 
 ## Contents
 
-### Chapter 1: Authentication
+### Chapter 1: Adding Authentication with Azure AD in your web application
 
 |               |               |
 |---------------|---------------|
 | <img src="./WebApp-OIDC/MyOrg/ReadmeFiles/topology.jpg" width="200"> | [**Sign-in with Azure AD**](./WebApp-OIDC/MyOrg) </br> Sign-in your users with the Microsoft Identity platform and learn to work with ID tokens. |
 | <img src="./WebApp-OIDC/B2C/ReadmeFiles/topology.jpg" width="200"> | [**Sign-in with Azure AD B2C**](./WebApp-OIDC/B2C) </br> Sign-in your customers with Azure AD B2C. Learn to integrate with external social identity providers. Learn how to use user-flows and custom policies. |
 
-### Chapter 2: Sign-in and get an Access Token for Microsoft Graph
+### Chapter 2: Sign-in a user and get an Access Token for Microsoft Graph
 
 |                |               |
 |----------------|---------------|
 | <img src="./WebApp-graph-user/Call-MSGraph/ReadmeFiles/topology.jpg" width="200"> | [**Acquire an Access Token from Azure AD and call Microsoft Graph**](./WebApp-graph-user/Call-MSGraph) </br> Here we build on the concepts we built to authenticate users to further acquire an Access Token for Microsoft Graph and then call the Microsoft Graph API. |
 
-### Chapter 3: Deploy to Azure
+### Chapter 3: Deploy your solutions to Azure
 
 |                 |               |
 |-----------------|---------------|
@@ -89,7 +89,7 @@ Use [Stack Overflow](http://stackoverflow.com/questions/tagged/msal) to get supp
 Ask your questions on Stack Overflow first and browse existing issues to see if someone has asked your question before.
 Make sure that your questions or comments are tagged with [`azure-active-directory` `azure-ad-b2c` `ms-identity` `msal`].
 
-If you find a bug in the sample, raise the issue on [GitHub Issues](../issues).
+If you find a bug in the sample, raise the issue on [GitHub Issues](../../issues).
 
 To provide feedback on or suggest features for Azure Active Directory, visit [User Voice page](https://feedback.azure.com/forums/169401-azure-active-directory).
 

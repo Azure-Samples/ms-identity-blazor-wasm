@@ -24,8 +24,6 @@ description: "This sample demonstrates how to enable your Blazor WebAssembly to 
  1. [Community Help and Support](#community-help-and-support)
  1. [Contributing](#contributing)
 
-![Build badge](https://identitydivision.visualstudio.com/_apis/public/build/definitions/a7934fdd-dcde-4492-a406-7fad6ac00e17/<BuildNumber>/badge)
-
 ## Overview
 
 This sample demonstrates an ASP.NET Core Blazor WebAssembly standalone application that authenticates users against Azure AD B2C.

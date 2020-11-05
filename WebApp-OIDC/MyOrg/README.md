@@ -31,7 +31,7 @@ This sample demonstrates an ASP.NET Core Blazor WebAssembly standalone applicati
 
 ## Scenario
 
-1. The ASP.NET Core Blazor WebAssembly standalone app uses the [Microsoft Authentication Library (MSAL.js)](https://github.com/AzureAD/microsoft-authentication-library-for-js) to obtain an [ID Token](https://docs.microsoft.com/azure/active-directory/develop/id-tokens) from **Azure AD**:
+1. The ASP.NET Core Blazor WebAssembly standalone app uses the [Microsoft Authentication Library](https://docs.microsoft.com/azure/active-directory/develop/msal-overview) to obtain an [ID Token](https://docs.microsoft.com/azure/active-directory/develop/id-tokens) from **Azure AD**:
 1. The **ID Token** proves that the user has successfully authenticated against **Azure AD**.
 
 Application uses **Implicit flow** grant type provided by Microsoft identity platform.
@@ -171,7 +171,7 @@ dotnet run
 
 ![UserClaims](./ReadmeFiles/UserClaims.png)
 
-> :information_source: Did the sample not work for you as expected? Then please reach out to us using the [GitHub Issues](../../../../issues) page.
+> :information_source: Did the sample not work for you as expected? Then please reach out to us using the [GitHub Issues](../../issues) page.
 
 ## We'd love your feedback!
 

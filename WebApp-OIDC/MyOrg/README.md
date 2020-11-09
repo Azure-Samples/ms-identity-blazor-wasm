@@ -23,15 +23,13 @@ description: "This sample demonstrates how to enable your Blazor WebAssembly to 
  1. [Community Help and Support](#community-help-and-support)
  1. [Contributing](#contributing)
 
-![Build badge](https://identitydivision.visualstudio.com/_apis/public/build/definitions/a7934fdd-dcde-4492-a406-7fad6ac00e17/<BuildNumber>/badge)
-
 ## Overview
 
 This sample demonstrates an ASP.NET Core Blazor WebAssembly standalone application that authenticates users against Azure AD.
 
 ## Scenario
 
-1. The ASP.NET Core Blazor WebAssembly standalone app uses the [Microsoft Authentication Library (MSAL.js)](https://github.com/AzureAD/microsoft-authentication-library-for-js) to obtain an [ID Token](https://docs.microsoft.com/azure/active-directory/develop/id-tokens) from **Azure AD**:
+1. The ASP.NET Core Blazor WebAssembly standalone app uses the [Microsoft Authentication Library](https://docs.microsoft.com/azure/active-directory/develop/msal-overview) to obtain an [ID Token](https://docs.microsoft.com/azure/active-directory/develop/id-tokens) from **Azure AD**:
 1. The **ID Token** proves that the user has successfully authenticated against **Azure AD**.
 
 Application uses **Implicit flow** grant type provided by Microsoft identity platform.
@@ -259,7 +257,7 @@ Use [Stack Overflow](http://stackoverflow.com/questions/tagged/msal) to get supp
 Ask your questions on Stack Overflow first and browse existing issues to see if someone has asked your question before.
 Make sure that your questions or comments are tagged with [`azure-active-directory` `ms-identity` `msal`].
 
-If you find a bug in the sample, raise the issue on [GitHub Issues](../../issues).
+If you find a bug in the sample, raise the issue on [GitHub Issues](../../../../issues).
 
 To provide feedback on or suggest features for Azure Active Directory, visit [User Voice page](https://feedback.azure.com/forums/169401-azure-active-directory).
 

@@ -2,9 +2,10 @@
   "Sample": {
     "Title": "Enable your Blazor Single-page Application (SPA) to sign-in users with the Microsoft identity platform",
     "Level": 200,
-    "Client": "ASP .Net Core Blazor WebAssembly Web App",
+    "Client": "ASP.NET Core Blazor WebAssembly Web App",
     "RepositoryUrl": "ms-identity-blazor-wasm",
-    "Endpoint": "AAD v2.0"
+    "Endpoint": "AAD v2.0",
+    "Service": "Microsoft Graph"
   },
 
   /*
@@ -14,9 +15,10 @@
     {
       "Id": "webApp",
       "Name": "WebApp-blazor-wasm",
-      "Kind": "WebApp",
+      "Kind": "SinglePageApplication",
+      "Sdk": "MsalNet",
       "Audience": "AzureADMyOrg",
-      "AllowImplicitFlow": true,
+      "AllowImplicitFlow": false,
       "ReplyUrls": "https://localhost:44314/authentication/login-callback",
       "LogoutUrl": "https://localhost:44314/signout-oidc",
       "RequiredResourcesAccess": [
@@ -24,7 +26,8 @@
           "Resource": "Microsoft Graph",
           "DelegatedPermissions": [ "User.Read" ]
         }
-      ]
+      ],
+      "SampleSubPath": "WebApp-graph-user/Call-MSGraph/blazorwasm-calls-MS-graph"
     }
   ],
 
@@ -41,16 +44,12 @@
       "SettingFile": "\\..\\blazorwasm-calls-MS-graph\\wwwroot\\appsettings.json",
       "Mappings": [
         {
-          "key": "ClientId",
+          "key": "Enter_Application_ID_here",
           "value": ".AppId"
         },
         {
-          "key": "Authority",
+          "key": "Enter_Tenant_ID_here",
           "value": "'https://login.microsoftonline.com/'+$tenantId"
-        },
-        {
-          "key": "ValidateAuthority",
-          "value": "'true'"
         }
       ]
     }

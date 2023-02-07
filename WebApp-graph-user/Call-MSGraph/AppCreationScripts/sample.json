@@ -41,6 +41,9 @@
           ]
         }
       ],
+      "OptionalClaims": {
+        "IdTokenClaims": [ "acct" ]
+      },
       "SampleSubPath": "WebApp-graph-user/Call-MSGraph/blazorwasm-calls-MS-graph"
     }
   ],

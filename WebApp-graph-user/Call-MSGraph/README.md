@@ -35,13 +35,14 @@ This sample demonstrates a ASP.NET Core Blazor WebAssembly Web App calling Micro
 
 ## Scenario
 
-1. The client ASP.NET Core Blazor WebAssembly Web App uses the  to sign-in a user and obtain a JWT [ID Token](https://aka.ms/id-tokens) and an [Access Token](https://aka.ms/access-tokens) from **Azure AD**.
+1. The client ASP.NET Core Blazor WebAssembly Web App uses the  to authenticate a user and obtain a JWT [ID Token](https://aka.ms/id-tokens) and an [Access Token](https://aka.ms/access-tokens) from **Azure AD**.
 1. The **access token** is used as a *bearer* token to authorize the user to call the Microsoft Graph protected by **Azure AD**.
 
 ![Scenario Image](./ReadmeFiles/topology.png)
 
 ## Prerequisites
 
+* Install [\.NET](https://dotnet.microsoft.com/en-us/download/dotnet).
 * Either [Visual Studio](https://visualstudio.microsoft.com/downloads/) or [Visual Studio Code](https://code.visualstudio.com/download) and [.NET Core SDK](https://www.microsoft.com/net/learn/get-started)
 * An **Azure AD** tenant. For more information, see: [How to get an Azure AD tenant](https://docs.microsoft.com/azure/active-directory/develop/test-setup-environment#get-a-test-tenant)
 * A user account in your **Azure AD** tenant.

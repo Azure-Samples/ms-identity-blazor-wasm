@@ -2,6 +2,14 @@
 page_type: sample
 name: Enable your Blazor Single-page Application (SPA) to sign-in users with the Microsoft identity platform
 description: 
+languages:
+ - aspnetcore-blazor
+ - csharp
+products:
+ - azure-active-directory
+ - ms-graph
+ - azure-active-directory
+ - msal-net
 urlFragment: ms-identity-blazor-wasm
 extensions:
 - services: ms-identity

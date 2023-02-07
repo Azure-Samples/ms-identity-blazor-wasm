@@ -5,9 +5,22 @@
     "Client": "ASP.NET Core Blazor WebAssembly Web App",
     "RepositoryUrl": "ms-identity-blazor-wasm",
     "Endpoint": "AAD v2.0",
-    "Service": "Microsoft Graph"
+    "Service": "Microsoft Graph",
+    "Languages": [
+      "aspnetcore-blazor",
+      "csharp"
+    ],
+    "Products": [
+      "azure-active-directory",
+      "ms-graph",
+      "azure-active-directory",
+      "msal-net"
+    ],
+    "devlang": [
+      "csharp",
+      "dotnet"
+    ]
   },
-
   /*
     This section describes the Azure AD Applications to configure, and their dependencies
   */
@@ -18,19 +31,19 @@
       "Kind": "SinglePageApplication",
       "Sdk": "MsalNet",
       "Audience": "AzureADMyOrg",
-      "AllowImplicitFlow": false,
       "ReplyUrls": "https://localhost:44314/authentication/login-callback",
       "LogoutUrl": "https://localhost:44314/signout-oidc",
       "RequiredResourcesAccess": [
         {
           "Resource": "Microsoft Graph",
-          "DelegatedPermissions": [ "User.Read" ]
+          "DelegatedPermissions": [
+            "User.Read"
+          ]
         }
       ],
       "SampleSubPath": "WebApp-graph-user/Call-MSGraph/blazorwasm-calls-MS-graph"
     }
   ],
-
   /*
     This section describes how to update the code in configuration files from the apps coordinates, once the apps
     are created in Azure AD.

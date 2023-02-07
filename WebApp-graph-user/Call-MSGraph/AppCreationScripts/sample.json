@@ -2,11 +2,25 @@
   "Sample": {
     "Title": "Enable your Blazor Single-page Application (SPA) to sign-in users with the Microsoft identity platform",
     "Level": 200,
-    "Client": "ASP .Net Core Blazor WebAssembly Web App",
+    "Client": "ASP.NET Core Blazor WebAssembly Web App",
     "RepositoryUrl": "ms-identity-blazor-wasm",
-    "Endpoint": "AAD v2.0"
+    "Endpoint": "AAD v2.0",
+    "Service": "Microsoft Graph",
+    "Languages": [
+      "aspnetcore-blazor",
+      "csharp"
+    ],
+    "Products": [
+      "azure-active-directory",
+      "ms-graph",
+      "azure-active-directory",
+      "msal-net"
+    ],
+    "devlang": [
+      "csharp",
+      "dotnet"
+    ]
   },
-
   /*
     This section describes the Azure AD Applications to configure, and their dependencies
   */
@@ -14,20 +28,25 @@
     {
       "Id": "webApp",
       "Name": "WebApp-blazor-wasm",
-      "Kind": "WebApp",
+      "Kind": "SinglePageApplication",
+      "Sdk": "MsalNet",
       "Audience": "AzureADMyOrg",
-      "AllowImplicitFlow": true,
       "ReplyUrls": "https://localhost:44314/authentication/login-callback",
       "LogoutUrl": "https://localhost:44314/signout-oidc",
       "RequiredResourcesAccess": [
         {
           "Resource": "Microsoft Graph",
-          "DelegatedPermissions": [ "User.Read" ]
+          "DelegatedPermissions": [
+            "User.Read"
+          ]
         }
-      ]
+      ],
+      "OptionalClaims": {
+        "IdTokenClaims": [ "acct" ]
+      },
+      "SampleSubPath": "WebApp-graph-user/Call-MSGraph/blazorwasm-calls-MS-graph"
     }
   ],
-
   /*
     This section describes how to update the code in configuration files from the apps coordinates, once the apps
     are created in Azure AD.
@@ -41,16 +60,12 @@
       "SettingFile": "\\..\\blazorwasm-calls-MS-graph\\wwwroot\\appsettings.json",
       "Mappings": [
         {
-          "key": "ClientId",
+          "key": "Enter_Application_ID_here",
           "value": ".AppId"
         },
         {
-          "key": "Authority",
+          "key": "Enter_Tenant_ID_here",
           "value": "'https://login.microsoftonline.com/'+$tenantId"
-        },
-        {
-          "key": "ValidateAuthority",
-          "value": "'true'"
         }
       ]
     }

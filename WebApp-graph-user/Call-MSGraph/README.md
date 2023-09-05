@@ -209,8 +209,7 @@ Were we successful in addressing your learning objective? [Do consider taking a 
     public class UserClaimsBase: ComponentBase
     {
         [Inject]
-        private AuthenticationStateProvider AuthenticationStateProvider { get; set;
-        }
+        private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
         protected string _authMessage;
         protected IEnumerable<Claim> _claims = Enumerable.Empty<Claim>();
         private string[] returnClaims = { "name", "preferred_username", "tid", "oid" };
@@ -236,13 +235,24 @@ Were we successful in addressing your learning objective? [Do consider taking a 
     }
    ```
 
-1. In Program.cs, Main method registers AddMicrosoftGraphClient as explained below:
+1. In Program.cs, the Microsoft Graph Client is registered as a scoped service using an extension method:
 
     ```csharp
-    builder.Services.AddMicrosoftGraphClient("https://graph.microsoft.com/User.Read");
+    builder.Services.AddGraphClient(builder.Configuration);
     ```
 
-    **AddMsalAuthentication** is an extension method provided by GraphClientExtensions.cs class.
+    **AddGraphClient** is an extension method is defined in `GraphClientExtensions.cs`.
+    
+    This implementation relies on the following configuration in `blazorwasm-calls-MS-graph\wwwroot\appsettings.json`.
+
+    ```json
+    "MicrosoftGraph": {
+      "BaseUrl": "https://graph.microsoft.com/v1.0",
+      "Scopes": [
+        "user.read"
+      ]
+    }
+    ```
 
 1. **UserProfile.razor** component displays user information retrieved by **GetUserProfile** method of **UserProfileBase.cs**.
 
@@ -261,7 +271,7 @@ Were we successful in addressing your learning objective? [Do consider taking a 
         private async Task GetUserProfile()
         {
             ...
-                var request = GraphClient.Me.Request();
+                var request = GraphClient.Me;
                 _user = await request.GetAsync();
             ...
         }
@@ -307,4 +317,5 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 * [Microsoft Graph permissions reference](https://docs.microsoft.com/graph/permissions-reference)
 * [Authentication and authorization basics for Microsoft Graph](https://docs.microsoft.com/graph/auth/auth-concepts)
 * [Secure an ASP.NET Core Blazor WebAssembly standalone app with Azure Active Directory](https://docs.microsoft.com/aspnet/core/blazor/security/webassembly/standalone-with-azure-active-directory)
+- [Use Graph API with ASP.NET Core Blazor WebAssembly](https://learn.microsoft.com/en-us/aspnet/core/blazor/security/webassembly/graph-api?view=aspnetcore-7.0&pivots=graph-sdk-5)
 * [ASP.NET Core Blazor WebAssembly additional security scenarios](https://docs.microsoft.com/aspnet/core/blazor/security/webassembly/additional-scenarios)

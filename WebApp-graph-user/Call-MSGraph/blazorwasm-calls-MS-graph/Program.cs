@@ -18,10 +18,7 @@ namespace blazorwasm_calls_MS_graph
             builder.RootComponents.Add<App>("app");
 
             // Adds the Microsoft graph client (Graph SDK) support for this app.
-            var baseUrl = builder.Configuration.GetSection("MicrosoftGraph")["BaseUrl"];
-            var scopes = builder.Configuration.GetSection("MicrosoftGraph:Scopes")
-                .Get<List<string>>();
-            builder.Services.AddGraphClient(baseUrl, scopes);
+            builder.Services.AddGraphClient(builder.Configuration);
 
             // Integrates authentication with the MSAL library
             builder.Services.AddMsalAuthentication(options =>

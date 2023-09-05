@@ -126,13 +126,25 @@ For details about the code to enable your Blazor Single-page Application (SPA) t
 
 This section, here, is only about the additional code added to let the Web App call the Microsoft Graph.
 
-1. In Program.cs, Main method registers AddMicrosoftGraphClient as explained below:
+1. In Program.cs, register the Microsoft Graph Client as a scoped service using an extension method:
 
     ```csharp
-    builder.Services.AddMicrosoftGraphClient("https://graph.microsoft.com/User.Read");
+    builder.Services.AddGraphClient(builder.Configuration);
     ```
 
-    **AddMsalAuthentication** is an extension method provided by GraphClientExtensions.cs class.
+    **AddGraphClient** is an extension method is defined in `GraphClientExtensions.cs`.
+    > be sure to copy this file into your project if you are _not_ running executing this sample project directly.
+
+    This implementation relies on the following configuration in `appsettings.json`.
+
+    ```json
+    "MicrosoftGraph": {
+      "BaseUrl": "https://graph.microsoft.com/v1.0",
+      "Scopes": [
+        "user.read"
+      ]
+    }
+    ```
 
 1. **UserProfile.razor** component displays user information retrieved by **GetUserProfile** method of **UserProfileBase.cs**.
 
@@ -143,7 +155,7 @@ This section, here, is only about the additional code added to let the Web App c
     {
         [Inject]
         GraphServiceClient GraphClient { get; set; }
-        protected User _user=new User();
+        protected User _user = new User();
         protected override async Task OnInitializedAsync()
         {
             await GetUserProfile();
@@ -151,7 +163,7 @@ This section, here, is only about the additional code added to let the Web App c
         private async Task GetUserProfile()
         {
             ...
-                var request = GraphClient.Me.Request();
+                var request = GraphClient.Me;
                 _user = await request.GetAsync();
             ...
         }
@@ -164,6 +176,7 @@ See [README.md](../../Deploy-to-Azure/README.md) to deploy this sample to Azure.
 
 ## More information
 
+- [Use Graph API with ASP.NET Core Blazor WebAssembly](https://learn.microsoft.com/en-us/aspnet/core/blazor/security/webassembly/graph-api?view=aspnetcore-7.0&pivots=graph-sdk-5)
 - [Microsoft Graph permissions reference](https://docs.microsoft.com/graph/permissions-reference)
 - [Authentication and authorization basics for Microsoft Graph](https://docs.microsoft.com/graph/auth/auth-concepts)
 - [ASP.NET Core Blazor WebAssembly additional security scenarios](https://docs.microsoft.com/aspnet/core/blazor/security/webassembly/additional-scenarios)

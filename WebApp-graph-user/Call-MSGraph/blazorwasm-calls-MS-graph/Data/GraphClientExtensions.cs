@@ -20,9 +20,28 @@ namespace blazorwasm_calls_MS_graph.Data
     /// </summary>
     internal static class GraphClientExtensions
     {
-        public static IServiceCollection AddGraphClient(
-                this IServiceCollection services, string baseUrl, List<string> scopes)
+        /// <summary>
+        /// Register the Graph Client as a scoped service
+        /// </summary>
+        /// <remarks>Configure appsettings.json with MicrosoftGraph options
+        /// <code>
+        ///   "MicrosoftGraph": {
+        ///     "BaseUrl": "https://graph.microsoft.com/v1.0",
+        ///     "Scopes": [
+        ///       "user.read"
+        ///     ]
+        ///   }
+        /// </code>
+        /// </remarks>
+        /// <param name="services">Builder </param>
+        /// <param name="config"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddGraphClient(this IServiceCollection services, IConfiguration config)
         {
+            var baseUrl = config.GetSection("MicrosoftGraph")["BaseUrl"];
+            var scopes = config.GetSection("MicrosoftGraph:Scopes")
+                .Get<List<string>>();
+
             if (string.IsNullOrEmpty(baseUrl) || scopes.IsNullOrEmpty())
             {
                 return services;

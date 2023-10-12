@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using blazorwasm_calls_MS_graph.Data;
@@ -16,15 +17,16 @@ namespace blazorwasm_calls_MS_graph
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
 
-            // Adds the Microsoft graph client (Graph SDK) support for this app. 
-            builder.Services.AddMicrosoftGraphClient("https://graph.microsoft.com/User.Read");
-
             // Integrates authentication with the MSAL library
             builder.Services.AddMsalAuthentication(options =>
             {
                 builder.Configuration.Bind("AzureAd", options.ProviderOptions.Authentication);
                 options.ProviderOptions.DefaultAccessTokenScopes.Add("https://graph.microsoft.com/User.Read");
             });
+
+            // Adds the Microsoft graph client (Graph SDK) support for this app.
+            builder.Services.AddGraphClient(builder.Configuration);
+
             await builder.Build().RunAsync();
         }
     }

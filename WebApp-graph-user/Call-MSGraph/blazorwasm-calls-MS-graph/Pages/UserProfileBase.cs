@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Graph;
+using Microsoft.Graph.Models;
 using System;
 using System.Threading.Tasks;
 
@@ -28,7 +29,7 @@ namespace blazorwasm_calls_MS_graph.Pages
         {
             try
             {
-                var request = GraphClient.Me.Request();
+                var request = GraphClient.Me;
                 _user = await request.GetAsync();
             }
             catch (Exception ex)
